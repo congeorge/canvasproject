@@ -5,6 +5,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Canvas{
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
     private int height;
     private int width;
      char[][] canvasArray;
@@ -34,8 +42,9 @@ public class Canvas{
         }
     }
 
+
     public String getCanvas() {
-     //   canvasArray = new char[height + 2][width];
+         canvasArray = new char[height + 2][width+2];
         // Draw upper border
         draw(0, 0, width - 1, 0, '-');
         // Draw left border
@@ -49,6 +58,8 @@ public class Canvas{
     }
 
 
+
+
     public void draw(int x1, int y1, int x2, int y2, char drawChar) {
         if (x1 == x2) {
             // vertical line
@@ -57,14 +68,11 @@ public class Canvas{
             }
         } else if (y1 == y2) {
             // horizontal line
-            Arrays.fill(canvasArray[y1], x1, x2 + 1, drawChar);
-        } else {
-            // we have a slope
-            double slope = (double) (y2 - y1) / (double) (x2 - x1);
-            for (int i = y1; i <= y2; i++) {
-                canvasArray[i][(int) Math.ceil(x1 + (slope * i))] = drawChar;
-            }
+            Arrays.fill(canvasArray[y1], x1, x2+1 , drawChar);
+
+
         }
+
     }
     public String getShapeAsString() {
         StringBuilder results = new StringBuilder();
@@ -78,18 +86,51 @@ public class Canvas{
         return results.toString();
     }
 
-
-    public void addRectangle () {
+    public boolean isWithinCanvas(int x , int y)
+    {
+        boolean status=true;
+        if(x<0 || x> (width) || y<0 || y> (height)){
+            System.out.println("Co-ordinates are outside of the Canvas");
+            status=false;
+        }
+        return status;
     }
+
+    public void updateCanvasArray(int x, int y , char value) throws IncorrectParametersException {
+        if(isWithinCanvas(x,y))
+            canvasArray[x][y]=value;
+        else
+            //TODO : Add new exception
+            throw new IncorrectParametersException("Cordinates are not within the Canvas");
+
+
+    }
+
 
     public void addLine (int x1, int y1, int x2, int y2) {
-        //row by row
-        for (int row = y1 - 1; row <= y2 - 1 && row < height; row++) {
-            //col by col
-            for (int col = x1 - 1; col <= x2 - 1 && col < width; col++) {
-                canvasArray[row][col] = LINE_CHAR;
+
+        draw(x1, y1, x2, y2, LINE_CHAR);
+
+    }
+
+
+
+    public void addRectangle(int x1, int y1, int x2, int y2)
+    {
+        try{
+            draw(x1, y1, x2, y1, LINE_CHAR);
+            draw(x1, y1, x1, y2, LINE_CHAR);
+            draw(x2, y1, x2, y2, LINE_CHAR);
+            draw(x1, y2, x2, y2, LINE_CHAR);
+                // add transforms if the order of co-oridnates is not appropriate
             }
+            catch(Exception e){
+                // log exception somewhere
+                System.out.println("Not possible to draw for a given input.");
+
+            }
+
         }
     }
-}
+
 

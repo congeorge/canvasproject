@@ -1,11 +1,13 @@
 package model;
 
+import java.util.Arrays;
+
 public class LineOperation implements CanvasOperation{
     private int x1;
     private int y1;
     private int x2;
     private int y2;
-    public LineOperation (String[] inputs) throws Exception {
+    public LineOperation (String[] inputs) throws IncorrectParametersException {
         if (inputs.length < 4)
             throw new IncorrectParametersException("Line needs 4 co-ordinates");
         try {
@@ -22,7 +24,14 @@ public class LineOperation implements CanvasOperation{
     }
 
     @Override
-    public void execute (Canvas canvas) {
-        canvas.addLine(x1,y1,x2,y2);
+    public void execute (Canvas canvas)  {
+        int width=canvas.getWidth();
+        int height=canvas.getHeight();
+        if(canvas.isWithinCanvas(x1,y1) && canvas.isWithinCanvas(x2,y2))
+        {
+            canvas.addLine(x1,y1,x2,y2);
+        }
+        else
+            System.out.println("Execution Failed:Cordinates are not within the Canvas");
     }
 }
