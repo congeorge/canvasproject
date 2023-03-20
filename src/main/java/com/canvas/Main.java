@@ -1,13 +1,11 @@
-package org.example;
+package com.canvas;
 
-import model.*;
+import com.canvas.operations.CanvasOperation;
+import com.canvas.model.*;
+import com.canvas.others.*;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.sql.SQLOutput;
-import java.util.Arrays;
-import java.util.stream.Stream;
 
 public class Main {
 
@@ -23,6 +21,7 @@ public class Main {
             "B x y c         Should fill the entire area connected to (x,y) with \"colour\" c. The\n" +
             "                behavior of this is the same as that of the \"bucket fill\" tool in paint\n" +
             "                programs.\n" +
+            "U               Undo last action\n"+
             "Q               Should quit the program.";
 
     private static Canvas canvas=null;
@@ -31,7 +30,7 @@ public class Main {
     public static void main(String[] args) throws Exception {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         CanvasOperation operation = null;
-
+        System.out.println(help);
         while (true) {
             String input = bufferedReader.readLine().trim();
             if (input != null && !input.isEmpty()) {
@@ -40,24 +39,18 @@ public class Main {
                 String command = inputs[0];
                 System.out.println("command is  : " + command);
                 try {
-                    operation = OperationFactory.getCommand(inputs);
+                    operation = CanvasOperationFactory.getOperation(inputs);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     printhelp();
                     continue;
 
                 }
-                if (operation instanceof DrawCanvasOperation) {
-                    canvas = new Canvas(inputs);
-                    canvas.getCanvas();
-                    executor.setCanvas(canvas);
-
-                } else {
-                    executor.executeOperation(operation);
-
-                }
-                System.out.println(canvas.getShapeAsString());
-        } else {
+                executor.executeOperation(operation);
+                if(executor.getCanvas()!=null)
+                System.out.println(executor.getCanvas().getShapeAsString());
+                executor.getCanvasOperationList().forEach(System.out::println);
+            } else {
                 printhelp();
             }
 
@@ -70,4 +63,5 @@ public class Main {
         System.out.println(help);
         
     }
+
 }

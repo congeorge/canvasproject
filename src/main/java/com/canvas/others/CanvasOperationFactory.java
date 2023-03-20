@@ -1,6 +1,8 @@
-package model;
+package com.canvas.others;
 
-public interface OperationFactory {
+import com.canvas.operations.*;
+
+public interface CanvasOperationFactory {
 		String CANVAS="C";
 		String LINE="L";
 		String RECTANGLE="R";
@@ -8,7 +10,7 @@ public interface OperationFactory {
 		String QUIT="Q";
 		String UNDO="U";
 
-	public static CanvasOperation getCommand(String[] inputArgs) throws Exception {
+	public static CanvasOperation getOperation(String[] inputArgs) throws Exception {
 		CanvasOperation operation = null;
 		switch (inputArgs[0]) {
 			case CANVAS:

@@ -1,4 +1,4 @@
-package model;
+package com.canvas.model;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -15,22 +15,22 @@ public class Canvas{
 
     private int height;
     private int width;
-     char[][] canvasArray;
+    private char[][] canvasArray;
     private static final char HORIZONTAL_EDGE_CHAR = '-';
     private static final char VERTICAL_EDGE_CHAR   = '|';
     private static final char LINE_CHAR            = 'x';
     private  String horizontalEdge="";
 
 
-      public Canvas (String... args) {
+      public Canvas (int... args) {
         if (args.length < 2)
         {
 
         }
         else {
             try {
-                this.width = Integer.parseInt(args[1]);
-                this.height = Integer.parseInt(args[2]);
+                this.width = args[0];
+                this.height = args[1];
                 canvasArray = new char[height+2][width];
                 Arrays.stream(canvasArray).forEach(chars -> Arrays.fill(chars, ' '));
 
@@ -96,16 +96,6 @@ public class Canvas{
         return status;
     }
 
-    public void updateCanvasArray(int x, int y , char value) throws IncorrectParametersException {
-        if(isWithinCanvas(x,y))
-            canvasArray[x][y]=value;
-        else
-            //TODO : Add new exception
-            throw new IncorrectParametersException("Cordinates are not within the Canvas");
-
-
-    }
-
 
     public void addLine (int x1, int y1, int x2, int y2) {
 
@@ -113,6 +103,11 @@ public class Canvas{
 
     }
 
+    public void removeLine (int x1, int y1, int x2, int y2) {
+
+        draw(x1, y1, x2, y2, ' ');
+
+    }
 
 
     public void addRectangle(int x1, int y1, int x2, int y2)

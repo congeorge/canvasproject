@@ -1,8 +1,8 @@
-package model;
+package com.canvas.exception;
 
 public class IncorrectParametersException extends Exception {
 
-    IncorrectParametersException(String message)
+   public IncorrectParametersException(String message)
     {
         super(message);
     }
