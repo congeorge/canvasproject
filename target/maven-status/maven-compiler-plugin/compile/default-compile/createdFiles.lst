@@ -1,0 +1,13 @@
+com\canvas\model\Canvas.class
+com\canvas\exception\IncorrectParametersException.class
+com\canvas\operations\DrawCanvasOperation.class
+com\canvas\operations\FillOperation.class
+com\canvas\operations\QuitOperation.class
+TwoDCell.class
+com\canvas\model\TwoDDrawCanvasOperation.class
+com\canvas\operations\UndoCanvasOperation.class
+com\canvas\operations\CanvasOperation.class
+com\canvas\others\CanvasOperationFactory.class
+com\canvas\model\Cell.class
+com\canvas\operations\LineOperation.class
+com\canvas\operations\RectangleOperation.class

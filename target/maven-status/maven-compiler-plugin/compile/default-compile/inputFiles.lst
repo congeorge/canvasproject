@@ -1,0 +1,16 @@
+C:\projects\canvas-main\src\main\java\com\canvas\model\Canvas.java
+C:\projects\canvas-main\src\main\java\com\canvas\operations\UndoCanvasOperation.java
+C:\projects\canvas-main\src\main\java\com\canvas\model\TwoDDrawCanvasOperation.java
+C:\projects\canvas-main\src\main\java\com\canvas\Main.java
+C:\projects\canvas-main\src\main\java\com\canvas\operations\QuitOperation.java
+C:\projects\canvas-main\src\main\java\com\canvas\exception\IncorrectCordinatesException.java
+C:\projects\canvas-main\src\main\java\com\canvas\operations\DrawCanvasOperation.java
+C:\projects\canvas-main\src\main\java\com\canvas\operations\LineOperation.java
+C:\projects\canvas-main\src\main\java\com\canvas\operations\FillOperation.java
+C:\projects\canvas-main\src\main\java\com\canvas\model\TwoDCell.java
+C:\projects\canvas-main\src\main\java\com\canvas\operations\CanvasOperation.java
+C:\projects\canvas-main\src\main\java\com\canvas\operations\RectangleOperation.java
+C:\projects\canvas-main\src\main\java\com\canvas\exception\IncorrectParametersException.java
+C:\projects\canvas-main\src\main\java\com\canvas\model\Cell.java
+C:\projects\canvas-main\src\main\java\com\canvas\others\CanvasOperationExecutor.java
+C:\projects\canvas-main\src\main\java\com\canvas\others\CanvasOperationFactory.java
