@@ -1,6 +1,9 @@
 package com.canvas.model;
 
+import java.awt.*;
+import java.nio.charset.CoderResult;
 import java.util.Arrays;
+import java.util.Stack;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -126,6 +129,36 @@ public class Canvas{
             }
 
         }
+    public void doFill(int x, int y,char color)
+    {
+        char origChar = canvasArray[y-1][x - 1];
+        Stack<TwoDCoordinate> stack= new Stack<>();
+        stack.add(new TwoDCoordinate(y-1,x-1));
+        while(!stack.isEmpty())
+        {
+            TwoDCoordinate pop = stack.pop();
+            int xc = pop.getX();
+            int yc = pop.getY();
+            if (canvasArray[xc][yc] == origChar) {
+                canvasArray[xc][yc] = color;
+            }
+            if (pop.getX() - 1 >= 0 && canvasArray[pop.getX() - 1][pop.getY()] == origChar) {
+                stack.add(new TwoDCoordinate(pop.getX() - 1, pop.getY()));
+            }
+            if (pop.getX() + 1 < height+1 && canvasArray[pop.getX() + 1][pop.getY()] == origChar) {
+                stack.add(new TwoDCoordinate(pop.getX() + 1, pop.getY()));
+
+            }
+            if (pop.getY() - 1 >= 0 && canvasArray[pop.getX()][pop.getY() - 1] == origChar) {
+                stack.add(new TwoDCoordinate(pop.getX(), pop.getY() - 1));
+            }
+            if (pop.getY() + 1 < width+1 && canvasArray[pop.getX()][pop.getY() + 1] == origChar) {
+                stack.add(new TwoDCoordinate(pop.getX(), pop.getY() + 1));
+            }
+
+
+        }
+    }
     }
 
 
