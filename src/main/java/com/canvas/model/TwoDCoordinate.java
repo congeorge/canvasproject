@@ -1,4 +1,5 @@
 package com.canvas.model;
+import com.canvas.exception.IncorrectCoordinatesException;
 import com.canvas.model.Coordinate;
 
 public class TwoDCoordinate implements Coordinate {
@@ -14,12 +15,14 @@ public class TwoDCoordinate implements Coordinate {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
 
     public int getY() {
         return y;
+    }
+
+    @Override
+    public int getZ() throws IncorrectCoordinatesException {
+        throw new IncorrectCoordinatesException("Not Supported");
     }
 
     public void setY(int y) {

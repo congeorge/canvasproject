@@ -1,13 +1,18 @@
 package com.canvas.model;
 
-import java.awt.*;
-import java.nio.charset.CoderResult;
+
 import java.util.Arrays;
 import java.util.Stack;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import static com.canvas.model.CanvasDrawingConstants.*;
 
 public class Canvas{
+
+    private int height;
+    private int width;
+    private char[][] canvasArray;
+
+    private char defaultChar='\u0000';
+
     public int getHeight() {
         return height;
     }
@@ -16,85 +21,56 @@ public class Canvas{
         return width;
     }
 
-    private int height;
-    private int width;
-    private char[][] canvasArray;
-    private static final char HORIZONTAL_EDGE_CHAR = '-';
-    private static final char VERTICAL_EDGE_CHAR   = '|';
-    private static final char LINE_CHAR            = 'x';
-    private  String horizontalEdge="";
 
-
-      public Canvas (int... args) {
-        if (args.length < 2)
-        {
-
-        }
-        else {
-            try {
-                this.width = args[0];
-                this.height = args[1];
-                canvasArray = new char[height+2][width+2];
-                Arrays.stream(canvasArray).forEach(chars -> Arrays.fill(chars, ' '));
-
-                horizontalEdge = Stream.generate(() -> String.valueOf(HORIZONTAL_EDGE_CHAR)).limit(width + 2).collect(Collectors.joining());
-
-            } catch (NumberFormatException e) {
-                throw new RuntimeException(e);
-            }
+    public Canvas(int... args) {
+        if (args.length >= 2) {
+            this.width = args[0];
+            this.height = args[1];
+            canvasArray = new char[height + 2][width + 2];
+        } else {
+            // not enough arguments ?
         }
     }
 
 
-    public String getCanvas() {
-         canvasArray = new char[height + 2][width+2];
-        // Draw upper border
-        draw(0, 0, width - 1, 0, '-');
-        // Draw left border
-        draw(0, 1, 0, height + 1, '|');
-        // Draw right border
-        draw(width - 1, 1, width - 1, height + 1, '|');
-        // Draw lower border
-        draw(0, height + 1, width - 1, height + 1, '-');
-
-        return getShapeAsString();
+    public void createCanvas() {
+        drawLine(0, 0, width - 1, 0, HorizontalBorder.getValue() );
+        drawLine(0, 1, 0, height + 1, VerticalBorder.getValue());
+        drawLine(width - 1, 1, width - 1, height + 1, VerticalBorder.getValue());
+        drawLine(0, height + 1, width - 1, height + 1,HorizontalBorder.getValue());
     }
 
 
-
-
-    public void draw(int x1, int y1, int x2, int y2, char drawChar) {
+    public void drawLine(int x1, int y1, int x2, int y2, char drawChar) {
         if (x1 == x2) {
-            // vertical line
-            for (int i = y1; i <= y2; i++) {
+             for (int i = y1; i <= y2; i++) {
                 canvasArray[i][x1] = drawChar;
             }
         } else if (y1 == y2) {
-            // horizontal line
-            Arrays.fill(canvasArray[y1], x1, x2+1 , drawChar);
+            Arrays.fill(canvasArray[y1], x1, x2 + 1, drawChar);
 
 
         }
 
     }
-    public String getShapeAsString() {
+
+    public String showCanvas() {
         StringBuilder results = new StringBuilder();
 
         for (int i = 0; i < canvasArray.length; ++i) {
             for (int j = 0; j < canvasArray[i].length; j++) {
-                results.append((canvasArray[i][j]) == 0 ? " " : canvasArray[i][j]);
+                results.append((canvasArray[i][j]) == defaultChar ? " " : canvasArray[i][j]);
             }
             results.append("\n\r");
         }
         return results.toString();
     }
 
-    public boolean isWithinCanvas(int x , int y)
-    {
-        boolean status=true;
-        if(x<0 || x> (width) || y<0 || y> (height)){
+    public boolean isWithinCanvas(int x, int y) {
+        boolean status = true;
+        if (x < 0 || x > (width) || y < 0 || y > (height)) {
             System.out.println("Co-ordinates are outside of the Canvas");
-            status=false;
+            status = false;
         }
         return status;
     }
@@ -102,13 +78,13 @@ public class Canvas{
 
     public void addLine (int x1, int y1, int x2, int y2) {
 
-        draw(x1, y1, x2, y2, LINE_CHAR);
+        drawLine(x1, y1, x2, y2, LineChar.getValue());
 
     }
 
     public void removeLine (int x1, int y1, int x2, int y2) {
 
-        draw(x1, y1, x2, y2, ' ');
+        drawLine(x1, y1, x2, y2, defaultChar);
 
     }
 
@@ -116,11 +92,10 @@ public class Canvas{
     public void addRectangle(int x1, int y1, int x2, int y2)
     {
         try{
-            draw(x1, y1, x2, y1, LINE_CHAR);
-            draw(x1, y1, x1, y2, LINE_CHAR);
-            draw(x2, y1, x2, y2, LINE_CHAR);
-            draw(x1, y2, x2, y2, LINE_CHAR);
-                // add transforms if the order of co-oridnates is not appropriate
+            drawLine(x1, y1, x2, y1, LineChar.getValue());
+            drawLine(x1, y1, x1, y2, LineChar.getValue());
+            drawLine(x2, y1, x2, y2, LineChar.getValue());
+            drawLine(x1, y2, x2, y2, LineChar.getValue());
             }
             catch(Exception e){
                 // log exception somewhere
@@ -131,10 +106,10 @@ public class Canvas{
         }
     public void doFill(int x, int y,char color)
     {
-        char origChar='\u0000';
+        char origChar=defaultChar;
         System.out.println("Do fill operation");
         // if point is on canvas border do nothing
-        if(canvasArray[y][x]!= '\u0000')
+        if(canvasArray[y][x]!= defaultChar)
         {
             origChar=canvasArray[y][x];
 
@@ -173,8 +148,7 @@ public class Canvas{
 
     public void undoFill(int x, int y,char color) {
         char origChar = color;
-        char blankcolor='\u0000';
-         Stack<TwoDCoordinate> stack = new Stack<>();
+        Stack<TwoDCoordinate> stack = new Stack<>();
         stack.add(new TwoDCoordinate(y, x));
         while (!stack.isEmpty()) {
             TwoDCoordinate pop = stack.pop();
@@ -183,7 +157,7 @@ public class Canvas{
             if (canvasArray[xc][yc] != origChar)
                 continue;
             else
-                canvasArray[xc][yc] = blankcolor;
+                canvasArray[xc][yc] = defaultChar;
 
             if (pop.getX() - 1 >= 0 && canvasArray[pop.getX() - 1][pop.getY()] == origChar) {
                 stack.add(new TwoDCoordinate(pop.getX() - 1, pop.getY()));

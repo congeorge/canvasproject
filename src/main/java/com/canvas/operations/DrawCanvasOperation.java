@@ -4,6 +4,8 @@ import com.canvas.exception.IncorrectParametersException;
 import com.canvas.model.*;
 
 public class DrawCanvasOperation implements CanvasOperation{
+
+  /*  private Coordinate[] points;*/
     public int getWidth() {
         return width;
     }
@@ -26,7 +28,7 @@ public class DrawCanvasOperation implements CanvasOperation{
     }
     @Override
     public boolean execute (Canvas canvas) {
-        canvas.getCanvas();
+        canvas.createCanvas();
         return true;
     }
     private boolean validateNoOfArguments(String[] inputs)
@@ -54,8 +56,7 @@ public class DrawCanvasOperation implements CanvasOperation{
     @Override
     public void undo(Canvas canvas) {
         if(canvas!=null)
-        {
-            canvas=null;
-        }
+              canvas=null;
+
       }
 }

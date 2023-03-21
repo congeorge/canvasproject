@@ -6,6 +6,7 @@ import com.canvas.model.*;
 
 public interface CanvasOperation<C> {
 
+    Coordinate[] coordinates=null;
     boolean execute(Canvas canvas) throws CanvasException;
 
     void  undo(Canvas canvas);
