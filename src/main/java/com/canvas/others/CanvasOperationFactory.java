@@ -26,6 +26,9 @@ public class CanvasOperationFactory  {
 			case Operations.QUIT:
 				operation = new QuitOperation(inputArgs);
 				break;
+			case Operations.Help:
+				operation = new HelpOperation(inputArgs);
+				break;
 			default:
 				throw new CanvasException("Not a supported command.");
 		}

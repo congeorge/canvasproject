@@ -34,16 +34,14 @@ public class CanvasOperationExecutor {
         }
         if (canvasOperation instanceof UndoCanvasOperation) {
             undoLastOperation();
+            displayCanvas();
             return;
         }
         if (canvasOperation.execute(canvas))
             canvasOperationList.add(canvasOperation);
+            displayCanvas();
 
-        // for debug only
-        canvasOperationList.forEach(System.out::println);
 
-        if (canvas != null)
-            System.out.println(canvas.showCanvas());
     }
 
     private void setupNewCanvas(CanvasOperation canvasOperation) {
@@ -70,5 +68,10 @@ public class CanvasOperationExecutor {
         } else
             System.out.println("Start again: Nothing to undo");
 
+    }
+    public void displayCanvas() {
+        canvasOperationList.forEach(System.out::println);
+        if (canvas != null)
+            System.out.println(canvas.showCanvas());
     }
 }

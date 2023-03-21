@@ -1,10 +1,12 @@
 package com.canvas.operations;
 
+import com.canvas.exception.CanvasException;
 import com.canvas.model.Canvas;
 
 public class UndoCanvasOperation implements CanvasOperation{
 
-    public UndoCanvasOperation(String[] inputs) throws Exception {
+
+    public UndoCanvasOperation(String[] inputs)  throws CanvasException {
 
     }
     @Override

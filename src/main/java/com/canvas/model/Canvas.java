@@ -34,14 +34,18 @@ public class Canvas{
 
 
     public void createCanvas() {
-        drawLine(0, 0, width - 1, 0, HorizontalBorder.getValue() );
-        drawLine(0, 1, 0, height + 1, VerticalBorder.getValue());
-        drawLine(width - 1, 1, width - 1, height + 1, VerticalBorder.getValue());
-        drawLine(0, height + 1, width - 1, height + 1,HorizontalBorder.getValue());
+            drawCanvas(HorizontalBorder.getValue(), VerticalBorder.getValue());
+    }
+
+    private void drawCanvas(char horizontalborder,char verticalborder) {
+        drawLine(0, 0, width - 1, 0,horizontalborder );
+        drawLine(0, 1, 0, height + 1, verticalborder);
+        drawLine(width - 1, 1, width - 1, height + 1, verticalborder);
+        drawLine(0, height + 1, width - 1, height + 1,horizontalborder );
     }
 
 
-    public void drawLine(int x1, int y1, int x2, int y2, char drawChar) {
+    private void drawLine(int x1, int y1, int x2, int y2, char drawChar) {
         if (x1 == x2) {
              for (int i = y1; i <= y2; i++) {
                 canvasArray[i][x1] = drawChar;
@@ -94,7 +98,7 @@ public class Canvas{
     }
     public void removeRectangle(int x1, int y1, int x2, int y2)
     {
-        addRectangle(x1, y1, x2, y2, defaultChar);
+         addRectangle(x1, y1, x2, y2, defaultChar);
     }
 
     private void addRectangle(int x1, int y1, int x2, int y2, char character)
@@ -115,47 +119,25 @@ public class Canvas{
     public void doFill(int x, int y,char color)
     {
         char origChar=defaultChar;
-        System.out.println("Do fill operation");
-        // if point is on canvas border do nothing
+        if(canvasArray[y][x]== HorizontalBorder.getValue()|| canvasArray[y][x]== VerticalBorder.getValue())
+        {
+            return;
+        }
+
         if(canvasArray[y][x]!= defaultChar)
         {
             origChar=canvasArray[y][x];
-
         }
-        Stack<TwoDCoordinate> stack= new Stack<>();
-        stack.add(new TwoDCoordinate(y,x));
-        while(!stack.isEmpty())
-        {
-            TwoDCoordinate pop = stack.pop();
-            int xc = pop.getX();
-            int yc = pop.getY();
-            if (canvasArray[xc][yc] != origChar)
-                continue;
-            else
-               canvasArray[xc][yc] = color;
-
-            if (pop.getX() - 1 >= 0 && canvasArray[pop.getX() - 1][pop.getY()] == origChar) {
-                stack.add(new TwoDCoordinate(pop.getX() - 1, pop.getY()));
-            }
-            if (pop.getX() + 1 < height+1 && canvasArray[pop.getX() + 1][pop.getY()] == origChar) {
-                stack.add(new TwoDCoordinate(pop.getX() + 1, pop.getY()));
-
-            }
-            if (pop.getY() - 1 >= 0 && canvasArray[pop.getX()][pop.getY() - 1] == origChar) {
-                stack.add(new TwoDCoordinate(pop.getX(), pop.getY() - 1));
-            }
-            if (pop.getY() + 1 < width+1 && canvasArray[pop.getX()][pop.getY() + 1] == origChar) {
-                stack.add(new TwoDCoordinate(pop.getX(), pop.getY() + 1));
-            }
-
-
-        }
-
-
+        fill(x,y,origChar,color);
     }
 
     public void undoFill(int x, int y,char color) {
         char origChar = color;
+        fill(x,y,origChar,defaultChar);
+
+    }
+
+    private void fill(int x,int y,char origChar, char color) {
         Stack<TwoDCoordinate> stack = new Stack<>();
         stack.add(new TwoDCoordinate(y, x));
         while (!stack.isEmpty()) {
@@ -165,7 +147,7 @@ public class Canvas{
             if (canvasArray[xc][yc] != origChar)
                 continue;
             else
-                canvasArray[xc][yc] = defaultChar;
+                canvasArray[xc][yc] = color;
 
             if (pop.getX() - 1 >= 0 && canvasArray[pop.getX() - 1][pop.getY()] == origChar) {
                 stack.add(new TwoDCoordinate(pop.getX() - 1, pop.getY()));
@@ -180,6 +162,8 @@ public class Canvas{
             if (pop.getY() + 1 < width + 1 && canvasArray[pop.getX()][pop.getY() + 1] == origChar) {
                 stack.add(new TwoDCoordinate(pop.getX(), pop.getY() + 1));
             }
+
+
         }
     }
     }
