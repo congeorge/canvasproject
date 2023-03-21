@@ -3,7 +3,10 @@ package com.canvas.model;
 public enum CanvasDrawingConstants {
     HorizontalBorder('-'),
     VerticalBorder('|'),
-    LineChar('X');
+    LineChar('X'),
+    RectangleChar('X');
+
+
 
     public char getValue() {
         return value;

@@ -88,14 +88,22 @@ public class Canvas{
 
     }
 
+    public void drawRectangle(int x1, int y1, int x2, int y2)
+    {
+         addRectangle(x1, y1, x2, y2, RectangleChar.getValue());
+    }
+    public void removeRectangle(int x1, int y1, int x2, int y2)
+    {
+        addRectangle(x1, y1, x2, y2, defaultChar);
+    }
 
-    public void addRectangle(int x1, int y1, int x2, int y2)
+    private void addRectangle(int x1, int y1, int x2, int y2, char character)
     {
         try{
-            drawLine(x1, y1, x2, y1, LineChar.getValue());
-            drawLine(x1, y1, x1, y2, LineChar.getValue());
-            drawLine(x2, y1, x2, y2, LineChar.getValue());
-            drawLine(x1, y2, x2, y2, LineChar.getValue());
+            drawLine(x1, y1, x2, y1,character);
+            drawLine(x1, y1, x1, y2,character);
+            drawLine(x2, y1, x2, y2, character);
+            drawLine(x1, y2, x2, y2,character);
             }
             catch(Exception e){
                 // log exception somewhere

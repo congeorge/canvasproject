@@ -66,6 +66,7 @@ public class FillOperation implements CanvasOperation{
 
     @Override
     public void undo(Canvas canvas) {
+
         canvas.undoFill(x,y,color);
     }
     private boolean validateNoOfArguments(String[] inputs)
@@ -73,8 +74,6 @@ public class FillOperation implements CanvasOperation{
         if(inputs==null || inputs.length < 4)
             return false;
         return true;
-
-
 
     }
     private void validateAndSetArgumentsValue(String[] inputs) throws IncorrectParametersException {

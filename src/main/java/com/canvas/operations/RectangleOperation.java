@@ -25,7 +25,7 @@ public class RectangleOperation implements CanvasOperation {
             int width = canvas.getWidth();
             int height = canvas.getHeight();
             if (canvas.isWithinCanvas(x1, y1) && canvas.isWithinCanvas(x2, y2)) {
-                canvas.addRectangle(x1, y1, x2, y2);
+                canvas.drawRectangle(x1, y1, x2, y2);
                 return true;
             } else
                 throw new IncorrectCoordinatesException("Execution Failed:Cordinates are not within the Canvas");
@@ -38,7 +38,7 @@ public class RectangleOperation implements CanvasOperation {
 
     @Override
     public void undo(Canvas canvas) {
-        canvas.removeLine(x1, y1, x2, y2);
+        canvas.removeRectangle(x1, y1, x2, y2);
 
     }
     private boolean validateNoOfArguments(String[] inputs)
