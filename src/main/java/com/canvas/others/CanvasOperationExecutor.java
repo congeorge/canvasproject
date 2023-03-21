@@ -1,5 +1,6 @@
 package com.canvas.others;
 
+import com.canvas.exception.CanvasException;
 import com.canvas.operations.CanvasOperation;
 import com.canvas.operations.DrawCanvasOperation;
 import com.canvas.operations.UndoCanvasOperation;
@@ -20,8 +21,8 @@ public class CanvasOperationExecutor {
         return canvas;
     }
 
-    public CanvasOperationExecutor(Canvas canvas) {
-        this.canvas = canvas;
+    public CanvasOperationExecutor() {
+
     }
 
     public List<CanvasOperation> getCanvasOperationList() {
@@ -31,12 +32,13 @@ public class CanvasOperationExecutor {
     private final List<CanvasOperation> canvasOperationList
             = new ArrayList<>();
 
-    public void executeOperation(CanvasOperation canvasOperation) throws Exception {
+    public void executeOperation(CanvasOperation canvasOperation) throws CanvasException {
         if (canvasOperation instanceof DrawCanvasOperation) {
             DrawCanvasOperation canvasOperation1 =(DrawCanvasOperation) canvasOperation;
             int width=canvasOperation1.getWidth();
             int height=canvasOperation1.getHeight();
             this.canvas = new Canvas(width,height);
+            canvasOperationList.clear();
             setCanvas(canvas);
         }
         if (canvasOperation instanceof UndoCanvasOperation) {
@@ -48,6 +50,10 @@ public class CanvasOperationExecutor {
         if(canvasOperation.execute(canvas))
             canvasOperationList.add(canvasOperation);
 
+        // for debug only
+        canvasOperationList.forEach(System.out::println);
+        if(canvas!=null)
+            System.out.println(canvas.getShapeAsString());
     }
 
     public void undoLastOperation() {

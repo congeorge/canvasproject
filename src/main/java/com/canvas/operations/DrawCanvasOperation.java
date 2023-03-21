@@ -16,11 +16,10 @@ public class DrawCanvasOperation implements CanvasOperation{
 
     int height;
 
-    public DrawCanvasOperation (String[] inputs) throws Exception {
-        if(inputs==null || inputs.length < 3)
+    public DrawCanvasOperation (String[] inputs) throws IncorrectParametersException {
+        if(!validateNoOfArguments(inputs))
             throw new IncorrectParametersException("Canvas needs height and width to be specified: C W H");
-        width = Integer.parseInt((String)inputs[1]);
-        height = Integer.parseInt((String)inputs[2]);
+        validateAndSetArgumentsValue(inputs);
         if(width<0 || height<0)
             throw new IncorrectParametersException("Canvas needs height and width to be greater than 0");
 
@@ -30,6 +29,28 @@ public class DrawCanvasOperation implements CanvasOperation{
         canvas.getCanvas();
         return true;
     }
+    private boolean validateNoOfArguments(String[] inputs)
+    {
+        if(inputs==null || inputs.length < 3)
+            return false;
+         return true;
+
+
+
+    }
+    private void validateAndSetArgumentsValue(String[] inputs) throws IncorrectParametersException {
+        try {
+            width = Integer.parseInt((String) inputs[1]);
+            height = Integer.parseInt((String) inputs[2]);
+        } catch(NumberFormatException e)
+        {
+            throw new IncorrectParametersException("Canvas width and height should be valid numbers");
+
+         }
+
+    }
+
+
     @Override
     public void undo(Canvas canvas) {
         if(canvas!=null)

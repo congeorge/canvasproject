@@ -1,38 +1,33 @@
 package com.canvas.others;
 
+import com.canvas.exception.CanvasException;
 import com.canvas.operations.*;
 
-public interface CanvasOperationFactory {
-		String CANVAS="C";
-		String LINE="L";
-		String RECTANGLE="R";
-		String FILL="B";
-		String QUIT="Q";
-		String UNDO="U";
+public class CanvasOperationFactory  {
 
 	public static CanvasOperation getOperation(String[] inputArgs) throws Exception {
 		CanvasOperation operation = null;
 		switch (inputArgs[0]) {
-			case CANVAS:
+			case Operations.CANVAS:
 				operation = new DrawCanvasOperation(inputArgs);
 				break;
-			case LINE:
+			case Operations.LINE:
 				operation = new LineOperation(inputArgs);
 				break;
-			case RECTANGLE:
+			case Operations.RECTANGLE:
 				operation = new RectangleOperation(inputArgs);
 				break;
-			case FILL:
+			case Operations.FILL:
 				operation = new FillOperation(inputArgs);
 				break;
-			case UNDO:
+			case Operations.UNDO:
 				operation = new UndoCanvasOperation(inputArgs);
 				break;
-			case QUIT:
+			case Operations.QUIT:
 				operation = new QuitOperation(inputArgs);
 				break;
 			default:
-				throw new Exception();
+				throw new CanvasException("Not a supported command.");
 		}
 		return operation;
 	}

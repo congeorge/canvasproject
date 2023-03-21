@@ -34,7 +34,7 @@ public class Canvas{
             try {
                 this.width = args[0];
                 this.height = args[1];
-                canvasArray = new char[height+2][width];
+                canvasArray = new char[height+2][width+2];
                 Arrays.stream(canvasArray).forEach(chars -> Arrays.fill(chars, ' '));
 
                 horizontalEdge = Stream.generate(() -> String.valueOf(HORIZONTAL_EDGE_CHAR)).limit(width + 2).collect(Collectors.joining());
@@ -131,17 +131,26 @@ public class Canvas{
         }
     public void doFill(int x, int y,char color)
     {
-        char origChar = canvasArray[y-1][x - 1];
+        char origChar='\u0000';
+        System.out.println("Do fill operation");
+        // if point is on canvas border do nothing
+        if(canvasArray[y][x]!= '\u0000')
+        {
+            origChar=canvasArray[y][x];
+
+        }
         Stack<TwoDCoordinate> stack= new Stack<>();
-        stack.add(new TwoDCoordinate(y-1,x-1));
+        stack.add(new TwoDCoordinate(y,x));
         while(!stack.isEmpty())
         {
             TwoDCoordinate pop = stack.pop();
             int xc = pop.getX();
             int yc = pop.getY();
-            if (canvasArray[xc][yc] == origChar) {
-                canvasArray[xc][yc] = color;
-            }
+            if (canvasArray[xc][yc] != origChar)
+                continue;
+            else
+               canvasArray[xc][yc] = color;
+
             if (pop.getX() - 1 >= 0 && canvasArray[pop.getX() - 1][pop.getY()] == origChar) {
                 stack.add(new TwoDCoordinate(pop.getX() - 1, pop.getY()));
             }
@@ -157,6 +166,38 @@ public class Canvas{
             }
 
 
+        }
+
+
+    }
+
+    public void undoFill(int x, int y,char color) {
+        char origChar = color;
+        char blankcolor='\u0000';
+         Stack<TwoDCoordinate> stack = new Stack<>();
+        stack.add(new TwoDCoordinate(y, x));
+        while (!stack.isEmpty()) {
+            TwoDCoordinate pop = stack.pop();
+            int xc = pop.getX();
+            int yc = pop.getY();
+            if (canvasArray[xc][yc] != origChar)
+                continue;
+            else
+                canvasArray[xc][yc] = blankcolor;
+
+            if (pop.getX() - 1 >= 0 && canvasArray[pop.getX() - 1][pop.getY()] == origChar) {
+                stack.add(new TwoDCoordinate(pop.getX() - 1, pop.getY()));
+            }
+            if (pop.getX() + 1 < height + 1 && canvasArray[pop.getX() + 1][pop.getY()] == origChar) {
+                stack.add(new TwoDCoordinate(pop.getX() + 1, pop.getY()));
+
+            }
+            if (pop.getY() - 1 >= 0 && canvasArray[pop.getX()][pop.getY() - 1] == origChar) {
+                stack.add(new TwoDCoordinate(pop.getX(), pop.getY() - 1));
+            }
+            if (pop.getY() + 1 < width + 1 && canvasArray[pop.getX()][pop.getY() + 1] == origChar) {
+                stack.add(new TwoDCoordinate(pop.getX(), pop.getY() + 1));
+            }
         }
     }
     }
