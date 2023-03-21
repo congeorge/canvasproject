@@ -35,14 +35,19 @@ public class Main {
                     System.out.println(e.getMessage());
                     printHelp();
                     continue;
-                } finally {
-                    bufferedReader.close();
+                }
+                catch (Exception e) {
+                    System.out.println("Something's Wrong: Exiting Application");
+                    e.printStackTrace();
+                    exit=true;
                 }
             } else {
                 printHelp();
                 continue;
             }
         } while (!exit);
+
+        bufferedReader.close();
 
     }
 
