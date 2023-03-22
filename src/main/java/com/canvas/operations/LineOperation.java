@@ -20,7 +20,7 @@ public class LineOperation implements CanvasOperation{
     }
 
     @Override
-    public boolean execute (Canvas canvas) throws CanvasException {
+    public boolean execute (TwoDCanvas canvas) throws CanvasException {
         if(canvas!=null)
         {
             int width = canvas.getWidth();
@@ -37,10 +37,17 @@ public class LineOperation implements CanvasOperation{
         return false;
     }
 
+/*
     @Override
-    public void undo(Canvas canvas) {
+    public void undo(TwoDCanvas canvas) {
         canvas.removeLine(x1,y1,x2,y2);
 
+    }
+*/
+
+    @Override
+    public Coordinate[] getCoordinates() {
+        return new Coordinate[0];
     }
 
     private boolean validateNoOfArguments(String[] inputs)
@@ -52,10 +59,10 @@ public class LineOperation implements CanvasOperation{
    }
     private void validateAndSetArgumentsValue(String[] inputs) throws IncorrectParametersException {
         try {
-            x1 = Math.min(Integer.parseInt(inputs[1]), Integer.parseInt(inputs[3]));
-            y1 = Math.min(Integer.parseInt(inputs[2]), Integer.parseInt(inputs[4]));
-            x2 = Math.max(Integer.parseInt(inputs[1]), Integer.parseInt(inputs[3]));
-            y2 = Math.max(Integer.parseInt(inputs[2]), Integer.parseInt(inputs[4]));
+            x1 = Math.min(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[2]));
+            y1 = Math.min(Integer.parseInt(inputs[1]), Integer.parseInt(inputs[3]));
+            x2 = Math.max(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[2]));
+            y2 = Math.max(Integer.parseInt(inputs[1]), Integer.parseInt(inputs[3]));
         } catch(NumberFormatException e)
         {
             throw new IncorrectParametersException("Canvas needs valid width and height parameter");

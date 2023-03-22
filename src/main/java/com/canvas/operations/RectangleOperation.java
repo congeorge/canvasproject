@@ -3,7 +3,8 @@ package com.canvas.operations;
 import com.canvas.exception.CanvasException;
 import com.canvas.exception.IncorrectCoordinatesException;
 import com.canvas.exception.IncorrectParametersException;
-import com.canvas.model.Canvas;
+import com.canvas.model.Coordinate;
+import com.canvas.model.TwoDCanvas;
 
 public class RectangleOperation implements CanvasOperation {
     private int x1;
@@ -19,7 +20,7 @@ public class RectangleOperation implements CanvasOperation {
     }
 
     @Override
-    public boolean execute(Canvas canvas) throws CanvasException {
+    public boolean execute(TwoDCanvas canvas) throws CanvasException {
 
         if(canvas!=null) {
             int width = canvas.getWidth();
@@ -36,11 +37,17 @@ public class RectangleOperation implements CanvasOperation {
         return false;
     }
 
-    @Override
-    public void undo(Canvas canvas) {
+/*    @Override
+    public void undo(TwoDCanvas canvas) {
         canvas.removeRectangle(x1, y1, x2, y2);
 
+    }*/
+
+    @Override
+    public Coordinate[] getCoordinates() {
+        return new Coordinate[0];
     }
+
     private boolean validateNoOfArguments(String[] inputs)
     {
         if(inputs==null || inputs.length < 4)

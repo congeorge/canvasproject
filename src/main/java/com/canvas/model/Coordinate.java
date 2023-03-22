@@ -2,8 +2,8 @@ package com.canvas.model;
 
 import com.canvas.exception.IncorrectCoordinatesException;
 
-public interface Coordinate {
-    int getX()throws IncorrectCoordinatesException;
-    int getY() throws IncorrectCoordinatesException;
-    int getZ() throws IncorrectCoordinatesException;
+public interface Coordinate<D> {
+    D getX();
+    D getY();
+    D getZ() ;
 }

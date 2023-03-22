@@ -12,12 +12,12 @@ import java.util.List;
 
 public class CanvasOperationExecutor {
 
-    private void setCanvas(com.canvas.model.Canvas canvas) {
+    private void setCanvas(TwoDCanvas canvas) {
         this.canvas = canvas;
     }
 
-    private Canvas canvas;
-    public Canvas getCanvas () {
+    private TwoDCanvas canvas;
+    public TwoDCanvas getCanvas () {
         return canvas;
     }
 
@@ -33,7 +33,8 @@ public class CanvasOperationExecutor {
             setupNewCanvas(canvasOperation);
         }
         if (canvasOperation instanceof UndoCanvasOperation) {
-            undoLastOperation();
+         //   undoLastOperation();
+            undo();
             displayCanvas();
             return;
         }
@@ -46,15 +47,39 @@ public class CanvasOperationExecutor {
 
     private void setupNewCanvas(CanvasOperation canvasOperation) {
         DrawCanvasOperation canvasOperation1 = (DrawCanvasOperation) canvasOperation;
-        int width = canvasOperation1.getWidth();
-        int height = canvasOperation1.getHeight();
-        this.canvas = new Canvas(width, height);
+        Coordinate<Integer> coordinate = canvasOperation.getCoordinates()[0];
+        this.canvas = new TwoDCanvas(coordinate);
         this.canvasOperationList.clear();
         this.setCanvas(canvas);
 
     }
 
-    public void undoLastOperation() {
+    public void undo() {
+           int length = canvasOperationList.size();
+            if (length > 1) {
+                List<CanvasOperation> listops=new ArrayList<>();
+                listops.addAll(canvasOperationList);
+                canvasOperationList.clear();
+                listops.remove(length - 1);
+                listops.stream().forEach((x)-> {
+                    try {
+                        executeOperation(x);
+                    } catch (CanvasException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+            } else if (length == 1) {
+                canvasOperationList.clear();
+                canvas = null;
+                System.out.println("All Clear :Ready to Start again");
+            }
+         else
+            System.out.println("Start again: Nothing to undo");
+
+
+    }
+
+/*    public void undoLastOperation() {
         if (canvas != null) {
             int length = canvasOperationList.size();
             if (length > 1) {
@@ -68,7 +93,7 @@ public class CanvasOperationExecutor {
         } else
             System.out.println("Start again: Nothing to undo");
 
-    }
+    }*/
     public void displayCanvas() {
         canvasOperationList.forEach(System.out::println);
         if (canvas != null)

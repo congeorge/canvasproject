@@ -3,8 +3,8 @@ package com.canvas.operations;
 import com.canvas.exception.CanvasException;
 import com.canvas.exception.IncorrectCoordinatesException;
 import com.canvas.exception.IncorrectParametersException;
-import com.canvas.model.Canvas;
 import com.canvas.model.Coordinate;
+import com.canvas.model.TwoDCanvas;
 import com.canvas.model.TwoDCoordinate;
 
 public class FillOperation implements CanvasOperation{
@@ -51,7 +51,7 @@ public class FillOperation implements CanvasOperation{
 
 
     @Override
-    public boolean execute (Canvas canvas) throws CanvasException {
+    public boolean execute (TwoDCanvas canvas) throws CanvasException {
         if (canvas != null) {
            if (canvas.isWithinCanvas(x, y)) {
                 canvas.doFill(x,y,color);
@@ -64,23 +64,31 @@ public class FillOperation implements CanvasOperation{
         return false;
     }
 
+/*
     @Override
-    public void undo(Canvas canvas) {
+    public void undo(TwoDCanvas canvas) {
 
         canvas.undoFill(x,y,color);
     }
+*/
+
+    @Override
+    public Coordinate[] getCoordinates() {
+        return new Coordinate[0];
+    }
+
     private boolean validateNoOfArguments(String[] inputs)
     {
-        if(inputs==null || inputs.length < 4)
+        if(inputs==null || inputs.length < 3)
             return false;
         return true;
 
     }
     private void validateAndSetArgumentsValue(String[] inputs) throws IncorrectParametersException {
         try {
-            x = Integer.parseInt(inputs[1]);
-            y = Integer.parseInt(inputs[2]);
-            color=inputs[3].charAt(0);
+            x = Integer.parseInt(inputs[0]);
+            y = Integer.parseInt(inputs[0]);
+            color=inputs[2].charAt(0);
         } catch (NumberFormatException e) {
             throw new IncorrectParametersException("All Line co-ordinates should be valid numbers");
         }

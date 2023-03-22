@@ -1,6 +1,7 @@
 package com.canvas.operations;
 
-import com.canvas.model.Canvas;
+import com.canvas.model.Coordinate;
+import com.canvas.model.TwoDCanvas;
 import com.canvas.others.Operations;
 
 public class HelpOperation implements CanvasOperation{
@@ -9,15 +10,21 @@ public class HelpOperation implements CanvasOperation{
     }
 
     @Override
-    public boolean execute (Canvas canvas) {
+    public boolean execute (TwoDCanvas canvas) {
         printHelp();
         return false;
     }
-    @Override
-    public void undo(Canvas canvas) {
+/*    @Override
+    public void undo(TwoDCanvas canvas) {
      // do nothing.
 
+    }*/
+
+    @Override
+    public Coordinate[] getCoordinates() {
+        return new Coordinate[0];
     }
+
     private void printHelp() {
         System.out.println(Operations.HelpMessage);
     }
