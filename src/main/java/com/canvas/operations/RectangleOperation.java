@@ -5,12 +5,12 @@ import com.canvas.exception.IncorrectCoordinatesException;
 import com.canvas.exception.IncorrectParametersException;
 import com.canvas.model.Coordinate;
 import com.canvas.model.TwoDCanvas;
+import com.canvas.model.TwoDCoordinate;
 
 public class RectangleOperation implements CanvasOperation {
-    private int x1;
-    private int y1;
-    private int x2;
-    private int y2;
+
+    private Coordinate<Integer>[] coordinates;
+
 
     public RectangleOperation(String[] inputs) throws IncorrectParametersException {
         if (!validateNoOfArguments(inputs)) {
@@ -23,10 +23,8 @@ public class RectangleOperation implements CanvasOperation {
     public boolean execute(TwoDCanvas canvas) throws CanvasException {
 
         if(canvas!=null) {
-            int width = canvas.getWidth();
-            int height = canvas.getHeight();
-            if (canvas.isWithinCanvas(x1, y1) && canvas.isWithinCanvas(x2, y2)) {
-                canvas.drawRectangle(x1, y1, x2, y2);
+           if (canvas.isWithinCanvas(coordinates[0]) && canvas.isWithinCanvas(coordinates[1])) {
+                canvas.drawRectangle(coordinates[0], coordinates[1]);
                 return true;
             } else
                 throw new IncorrectCoordinatesException("Execution Failed:Cordinates are not within the Canvas");
@@ -37,15 +35,10 @@ public class RectangleOperation implements CanvasOperation {
         return false;
     }
 
-/*    @Override
-    public void undo(TwoDCanvas canvas) {
-        canvas.removeRectangle(x1, y1, x2, y2);
-
-    }*/
-
     @Override
     public Coordinate[] getCoordinates() {
-        return new Coordinate[0];
+
+        return coordinates;
     }
 
     private boolean validateNoOfArguments(String[] inputs)
@@ -57,10 +50,13 @@ public class RectangleOperation implements CanvasOperation {
     }
     private void validateAndSetArgumentsValue(String[] inputs) throws IncorrectParametersException {
         try {
-            x1 = Math.min(Integer.parseInt(inputs[1]), Integer.parseInt(inputs[3]));
-            y1 = Math.min(Integer.parseInt(inputs[2]), Integer.parseInt(inputs[4]));
-            x2 = Math.max(Integer.parseInt(inputs[1]), Integer.parseInt(inputs[3]));
-            y2 = Math.max(Integer.parseInt(inputs[2]), Integer.parseInt(inputs[4]));
+            int x1 = Math.min(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[2]));
+            int y1 = Math.min(Integer.parseInt(inputs[1]), Integer.parseInt(inputs[3]));
+            int x2 = Math.max(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[2]));
+            int y2 = Math.max(Integer.parseInt(inputs[1]), Integer.parseInt(inputs[3]));
+            coordinates=new Coordinate[2];
+            coordinates[0]=new TwoDCoordinate<Integer>(x1,y1);
+            coordinates[1]=new TwoDCoordinate<Integer>(x2,y2);
         } catch (NumberFormatException e) {
             throw new IncorrectParametersException("All Rectangle co-ordinates should be valid numbers");
         }

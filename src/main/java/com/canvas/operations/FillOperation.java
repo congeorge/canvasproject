@@ -9,35 +9,22 @@ import com.canvas.model.TwoDCoordinate;
 
 public class FillOperation implements CanvasOperation{
 
+    private Coordinate[] coordinates;
 
-    int x;
-    int y;
 
     private char color;
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
 
     public char getColor() {
         return color;
     }
+    @Override
+    public Coordinate[] getCoordinates() {
 
-    public void setColor(char color) {
-        this.color = color;
+        return coordinates;
     }
+
+
+
 
 
 
@@ -53,8 +40,8 @@ public class FillOperation implements CanvasOperation{
     @Override
     public boolean execute (TwoDCanvas canvas) throws CanvasException {
         if (canvas != null) {
-           if (canvas.isWithinCanvas(x, y)) {
-                canvas.doFill(x,y,color);
+           if (canvas.isWithinCanvas(coordinates[0])) {
+                canvas.doFill(coordinates[0],color);
                 return true;
             } else
                 throw new IncorrectCoordinatesException("Execution Failed:Cordinates are not within the Canvas");
@@ -64,18 +51,7 @@ public class FillOperation implements CanvasOperation{
         return false;
     }
 
-/*
-    @Override
-    public void undo(TwoDCanvas canvas) {
 
-        canvas.undoFill(x,y,color);
-    }
-*/
-
-    @Override
-    public Coordinate[] getCoordinates() {
-        return new Coordinate[0];
-    }
 
     private boolean validateNoOfArguments(String[] inputs)
     {
@@ -86,8 +62,8 @@ public class FillOperation implements CanvasOperation{
     }
     private void validateAndSetArgumentsValue(String[] inputs) throws IncorrectParametersException {
         try {
-            x = Integer.parseInt(inputs[0]);
-            y = Integer.parseInt(inputs[0]);
+            coordinates = new Coordinate[1];
+            coordinates[0]=new TwoDCoordinate<Integer>(Integer.valueOf(inputs[0]),Integer.valueOf(inputs[1]));
             color=inputs[2].charAt(0);
         } catch (NumberFormatException e) {
             throw new IncorrectParametersException("All Line co-ordinates should be valid numbers");

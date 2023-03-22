@@ -15,14 +15,6 @@ public class TwoDCanvas implements CanvasInterface {
 
     private char defaultChar='\u0000';
 
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
 
     public TwoDCanvas(Coordinate<Integer> size ) {
         this.width=size.getX();
@@ -69,9 +61,9 @@ public class TwoDCanvas implements CanvasInterface {
         return results.toString();
     }
 
-    public boolean isWithinCanvas(int x, int y) {
+    public boolean isWithinCanvas(Coordinate<Integer> coordinate) {
         boolean status = true;
-        if (x < 0 || x > (width) || y < 0 || y > (height)) {
+        if (coordinate.getX() < 0 || coordinate.getX() > (width) ||coordinate.getY() < 0 ||coordinate.getY() > (height)) {
             System.out.println("Co-ordinates are outside of the Canvas");
             status = false;
         }
@@ -79,25 +71,16 @@ public class TwoDCanvas implements CanvasInterface {
     }
 
 
-    public void addLine (int x1, int y1, int x2, int y2) {
+    public void  addLine (Coordinate<Integer> start,Coordinate<Integer>  end) {
 
-        drawLine(x1, y1, x2, y2, LineChar.getValue());
-
-    }
-
-    public void removeLine (int x1, int y1, int x2, int y2) {
-
-        drawLine(x1, y1, x2, y2, defaultChar);
+        drawLine(start.getX(), start.getY(), end.getX(), end.getY(), LineChar.getValue());
 
     }
 
-    public void drawRectangle(int x1, int y1, int x2, int y2)
+
+    public void drawRectangle(Coordinate<Integer> start,Coordinate<Integer> end)
     {
-         addRectangle(x1, y1, x2, y2, RectangleChar.getValue());
-    }
-    public void removeRectangle(int x1, int y1, int x2, int y2)
-    {
-         addRectangle(x1, y1, x2, y2, defaultChar);
+         addRectangle(start.getX(), start.getY(), end.getX(), end.getY() ,RectangleChar.getValue());
     }
 
     private void addRectangle(int x1, int y1, int x2, int y2, char character)
@@ -115,25 +98,21 @@ public class TwoDCanvas implements CanvasInterface {
             }
 
         }
-    public void doFill(int x, int y,char color)
+    public void doFill(Coordinate<Integer> coordinate,char color)
     {
+        int x = coordinate.getX();
+        int y = coordinate.getY();
+
         char origChar=defaultChar;
         if(canvasArray[y][x]== HorizontalBorder.getValue()|| canvasArray[y][x]== VerticalBorder.getValue())
         {
             return;
         }
-
         if(canvasArray[y][x]!= defaultChar)
         {
             origChar=canvasArray[y][x];
         }
         fill(x,y,origChar,color);
-    }
-
-    public void undoFill(int x, int y,char color) {
-        char origChar = color;
-        fill(x,y,origChar,defaultChar);
-
     }
 
     private void fill(int x,int y,char origChar, char color) {

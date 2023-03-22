@@ -14,11 +14,7 @@ public class HelpOperation implements CanvasOperation{
         printHelp();
         return false;
     }
-/*    @Override
-    public void undo(TwoDCanvas canvas) {
-     // do nothing.
 
-    }*/
 
     @Override
     public Coordinate[] getCoordinates() {

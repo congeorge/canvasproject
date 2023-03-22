@@ -1,6 +1,7 @@
 package com.canvas.others;
 
 import com.canvas.exception.CanvasException;
+import com.canvas.exception.NoSuchOperationException;
 import com.canvas.operations.*;
 
 import java.util.Arrays;
@@ -33,7 +34,7 @@ public class CanvasOperationFactory  {
 				operation = new HelpOperation(arguments);
 				break;
 			default:
-				throw new CanvasException("Not a supported command.");
+				throw new NoSuchOperationException("Not a supported operation");
 		}
 		return operation;
 	}
