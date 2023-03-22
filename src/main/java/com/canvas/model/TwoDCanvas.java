@@ -19,7 +19,7 @@ public class TwoDCanvas implements CanvasInterface {
     public TwoDCanvas(Coordinate<Integer> size ) {
         this.width=size.getX();
         this.height=size.getY();
-        canvasArray = new char[height + 2][width + 2];
+        canvasArray = new char[height+2][width+2];
 
     }
 
@@ -29,20 +29,32 @@ public class TwoDCanvas implements CanvasInterface {
     }
 
     private void drawCanvas(char horizontalborder,char verticalborder) {
-        drawLine(0, 0, width - 1, 0,horizontalborder );
-        drawLine(0, 1, 0, height + 1, verticalborder);
-        drawLine(width - 1, 1, width - 1, height + 1, verticalborder);
-        drawLine(0, height + 1, width - 1, height + 1,horizontalborder );
+        drawBorder(0, 0, width - 1, 0,horizontalborder );
+        drawBorder(0, 1, 0, height + 1, verticalborder);
+        drawBorder(width - 1, 1, width - 1, height + 1, verticalborder);
+        drawBorder(0, height + 1, width - 1, height + 1,horizontalborder );
     }
 
 
-    private void drawLine(int x1, int y1, int x2, int y2, char drawChar) {
+    private void drawBorder(int x1, int y1, int x2, int y2, char drawChar) {
         if (x1 == x2) {
              for (int i = y1; i <= y2; i++) {
                 canvasArray[i][x1] = drawChar;
             }
         } else if (y1 == y2) {
-            Arrays.fill(canvasArray[y1], x1, x2 + 1, drawChar);
+           Arrays.fill(canvasArray[y1], x1, x2 + 1, drawChar);
+
+
+        }
+
+    }
+    private void drawLine(int x1, int y1, int x2, int y2, char drawChar) {
+        if (x1 == x2) {
+            for (int i = y1; i <= y2; i++) {
+                canvasArray[i][x1] = drawChar;
+            }
+        } else if (y1 == y2) {
+            Arrays.fill(canvasArray[y1], x1, x2, drawChar);
 
 
         }

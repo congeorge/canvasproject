@@ -9,7 +9,7 @@ public class LineOperation implements CanvasOperation{
     private Coordinate<Integer>[] coordinates;
     public LineOperation (String[] inputs) throws IncorrectParametersException {
         if (!validateNoOfArguments(inputs))
-            throw new IncorrectParametersException("Line needs 4 co-ordinates");
+            throw new IncorrectParametersException("Line needs 4 co-ordinates : L x1 y1 x2 y2" );
         validateAndSetArgumentsValue(inputs);
 
     }
@@ -57,7 +57,7 @@ public class LineOperation implements CanvasOperation{
             coordinates[1]=new TwoDCoordinate<Integer>(x2,y2);
         } catch(NumberFormatException e)
         {
-            throw new IncorrectParametersException("Canvas needs valid width and height parameter");
+            throw new IncorrectParametersException("Line needs valid 4 co-ordinates : L x1 y1 x2 y2");
         }
 
     }
