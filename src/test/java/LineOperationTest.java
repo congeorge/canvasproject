@@ -38,12 +38,12 @@ public class LineOperationTest {
 
     @Test
     void getDrawCanvasOperationTest_InCorrectParameters_WithZeroWidth() throws Exception {
-        Exception exception = assertThrows(IncorrectParametersException.class, () -> new LineOperation(new String[]{"0","4","2","4"}));
-        assertEquals("Canvas needs height and width to be greater than 0", exception.getMessage());
+        Exception exception = assertThrows(IncorrectParametersException.class, () -> new LineOperation(new String[]{"1","2","6","3"}));
+        assertEquals("Diagonal line is not supported", exception.getMessage());
     }
     @Test
     void getDrawCanvasOperationTest_InCorrectParameters_WithNegativeValues() throws Exception {
-        Exception exception = assertThrows(IncorrectParametersException.class, () -> new DrawCanvasOperation(new String[]{"-20","-5"}));
-        assertEquals("Canvas needs height and width to be greater than 0", exception.getMessage());
+        Exception exception = assertThrows(IncorrectParametersException.class, () -> new LineOperation(new String[]{"-1","-2","-6","-2"}));
+        assertEquals("Line coordinates cannot be less than 0", exception.getMessage());
     }
 }

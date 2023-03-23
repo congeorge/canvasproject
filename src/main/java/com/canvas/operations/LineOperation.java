@@ -3,6 +3,7 @@ package com.canvas.operations;
 import com.canvas.exception.CanvasException;
 import com.canvas.exception.IncorrectCoordinatesException;
 import com.canvas.exception.IncorrectParametersException;
+import com.canvas.exception.NoCanvasException;
 import com.canvas.model.*;
 
 public class LineOperation implements CanvasOperation{
@@ -25,10 +26,9 @@ public class LineOperation implements CanvasOperation{
                 throw new IncorrectCoordinatesException("Execution Failed:Cordinates are not within the Canvas");
         }
         else {
-            System.out.println("Canvas is needed to draw lines: Please create canvas first");
+             throw new NoCanvasException("Canvas is needed to draw lines: Please create canvas first");
         }
-        return false;
-    }
+     }
 
     @Override
     public Coordinate[] getCoordinates() {
@@ -50,8 +50,11 @@ public class LineOperation implements CanvasOperation{
             int x2 = Math.max(Integer.parseInt(inputs[0]), Integer.parseInt(inputs[2]));
             int y2 = Math.max(Integer.parseInt(inputs[1]), Integer.parseInt(inputs[3]));
             if (x1 != x2 && y1 != y2) {
-                throw new IncorrectParametersException("Diagonal line are not supported");
+                throw new IncorrectParametersException("Diagonal line is not supported");
             }
+            if(x1<0 || x2<=0 || y1<0|| y2<0)
+                throw new IncorrectParametersException("Line coordinates cannot be less than 0");
+
             coordinates=new Coordinate[2];
             coordinates[0]=new TwoDCoordinate<Integer>(x1,y1);
             coordinates[1]=new TwoDCoordinate<Integer>(x2,y2);
