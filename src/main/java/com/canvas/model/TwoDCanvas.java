@@ -28,12 +28,18 @@ public class TwoDCanvas implements CanvasInterface {
     }
 
     private void drawCanvas(char horizontalborder,char verticalborder) {
+        drawBorder(0, 0, width+1 , 0,horizontalborder );
+        drawBorder(0, 1, 0, height + 1, verticalborder);
+        drawBorder(width+1 , 1, width+1, height , verticalborder);
+        drawBorder(0, height + 1, width + 1, height + 1,horizontalborder );
+    }
+
+/*    private void drawCanvas(char horizontalborder,char verticalborder) {
         drawBorder(0, 0, width - 1, 0,horizontalborder );
         drawBorder(0, 1, 0, height + 1, verticalborder);
         drawBorder(width - 1, 1, width - 1, height + 1, verticalborder);
         drawBorder(0, height + 1, width - 1, height + 1,horizontalborder );
-    }
-
+    }*/
 
     private void drawBorder(int x1, int y1, int x2, int y2, char drawChar) {
         if (x1 == x2) {
@@ -62,12 +68,11 @@ public class TwoDCanvas implements CanvasInterface {
 
     public String showCanvas() {
         StringBuilder results = new StringBuilder();
-
-        for (int i = 0; i < canvasArray.length; ++i) {
+       for (int i = 0; i < canvasArray.length; ++i) {
             for (int j = 0; j < canvasArray[i].length; j++) {
                 results.append((canvasArray[i][j]) == defaultChar ? " " : canvasArray[i][j]);
             }
-            results.append("\n\r");
+            results.append("\n");
         }
         return results.toString();
     }
