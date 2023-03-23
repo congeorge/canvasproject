@@ -1,10 +1,10 @@
 package com.canvas.model;
 
 public enum CanvasDrawingConstants {
-    HorizontalBorder('-'),
-    VerticalBorder('|'),
-    LineChar('X'),
-    RectangleChar('X');
+    HORIZONTALBORDER('-'),
+    VERTICALBORDER('|'),
+    LINECHAR('X'),
+    RECTANGLECHAR('X');
 
 
 

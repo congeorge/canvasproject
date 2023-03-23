@@ -3,7 +3,6 @@ C:\projects\canvas-main\src\main\java\com\canvas\operations\UndoCanvasOperation.
 C:\projects\canvas-main\src\main\java\com\canvas\Main.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\QuitOperation.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\DrawCanvasOperation.java
-C:\projects\canvas-main\src\main\java\com\canvas\others\OperationsConstants.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\HelpOperation.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\LineOperation.java
 C:\projects\canvas-main\src\main\java\com\canvas\model\CanvasDrawingConstants.java
@@ -19,5 +18,6 @@ C:\projects\canvas-main\src\main\java\com\canvas\model\Coordinate.java
 C:\projects\canvas-main\src\main\java\com\canvas\exception\IncorrectParametersException.java
 C:\projects\canvas-main\src\main\java\com\canvas\others\CanvasOperationExecutor.java
 C:\projects\canvas-main\src\main\java\com\canvas\others\CanvasOperationFactory.java
+C:\projects\canvas-main\src\main\java\com\canvas\others\OperationConstants.java
 C:\projects\canvas-main\src\main\java\com\canvas\exception\NoSuchOperationException.java
 C:\projects\canvas-main\src\main\java\com\canvas\exception\QuitCanvasException.java

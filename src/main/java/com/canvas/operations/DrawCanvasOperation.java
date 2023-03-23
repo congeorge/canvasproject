@@ -25,9 +25,11 @@ public class DrawCanvasOperation implements CanvasOperation{
     }
     private boolean validateNoOfArguments(String[] inputs)
     {
+        boolean status=true;
         if(inputs==null || inputs.length < 2)
-            return false;
-         return true;
+            status=false;
+
+         return status;
 
 
 
@@ -35,7 +37,7 @@ public class DrawCanvasOperation implements CanvasOperation{
     private void validateAndSetArgumentsValue(String[] inputs) throws IncorrectParametersException {
         try {
             coordinates = new Coordinate[1];
-            coordinates[0]=new TwoDCoordinate<Integer>(Integer.valueOf(inputs[0]),Integer.valueOf(inputs[1]));
+            coordinates[0]=new TwoDCoordinate<>(Integer.valueOf(inputs[0]),Integer.valueOf(inputs[1]));
         } catch(NumberFormatException e)
         {
             throw new IncorrectParametersException("Canvas width and height should be valid numbers");

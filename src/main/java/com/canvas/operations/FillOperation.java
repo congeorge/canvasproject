@@ -55,16 +55,16 @@ public class FillOperation implements CanvasOperation{
 
 
     private boolean validateNoOfArguments(String[] inputs)
-    {
+    {     boolean status=true;
         if(inputs==null || inputs.length < 3)
-            return false;
-        return true;
+            status= false;
+        return status;
 
     }
     private void validateAndSetArgumentsValue(String[] inputs) throws IncorrectParametersException {
         try {
-            int x= Integer.valueOf(inputs[0]);
-            int y =Integer.valueOf(inputs[1]);
+            int x= Integer.parseInt(inputs[0]);
+            int y =Integer.parseInt(inputs[1]);
             if(x<=0 || y<=0 )
                 throw new IncorrectParametersException("Fill coordinates cannot be less than 0");
 

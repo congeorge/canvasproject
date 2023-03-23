@@ -3,11 +3,9 @@ package com.canvas;
 import com.canvas.exception.CanvasException;
 import com.canvas.exception.QuitCanvasException;
 import com.canvas.operations.CanvasOperation;
-import com.canvas.model.*;
 import com.canvas.others.*;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
@@ -53,7 +51,7 @@ public class Main {
 
     public static void printHelp() {
         System.out.println("Please use any of the below valid commands:");
-        System.out.println(OperationsConstants.HelpMessage);
+        System.out.println(OperationConstants.HELPMESSAGE);
 
     }
 

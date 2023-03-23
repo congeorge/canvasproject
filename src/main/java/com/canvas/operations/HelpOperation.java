@@ -2,7 +2,7 @@ package com.canvas.operations;
 
 import com.canvas.model.Coordinate;
 import com.canvas.model.TwoDCanvas;
-import com.canvas.others.OperationsConstants;
+import com.canvas.others.OperationConstants;
 
 public class HelpOperation implements CanvasOperation{
     public HelpOperation(String[] inputArgs) {
@@ -22,6 +22,6 @@ public class HelpOperation implements CanvasOperation{
     }
 
     private void printHelp() {
-        System.out.println(OperationsConstants.HelpMessage);
+        System.out.println(OperationConstants.HELPMESSAGE);
     }
 }

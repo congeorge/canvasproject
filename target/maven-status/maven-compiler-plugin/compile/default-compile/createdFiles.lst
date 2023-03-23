@@ -2,9 +2,9 @@ com\canvas\others\CanvasOperationExecutor.class
 com\canvas\operations\HelpOperation.class
 com\canvas\exception\CanvasException.class
 com\canvas\model\TwoDCanvas.class
-com\canvas\others\OperationsConstants.class
 com\canvas\exception\IncorrectCoordinatesException.class
 com\canvas\model\CanvasDrawingConstants.class
+com\canvas\others\OperationConstants.class
 com\canvas\exception\IncorrectParametersException.class
 com\canvas\operations\DrawCanvasOperation.class
 com\canvas\exception\NoSuchOperationException.class

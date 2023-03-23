@@ -1,8 +1,6 @@
 package com.canvas.model;
 
 
-import com.canvas.operations.CanvasOperation;
-
 import java.util.Arrays;
 import java.util.Stack;
 import static com.canvas.model.CanvasDrawingConstants.*;
@@ -21,11 +19,12 @@ public class TwoDCanvas implements CanvasInterface {
         this.height=size.getY();
         canvasArray = new char[height+2][width+2];
 
+
     }
 
 
     public void createCanvas() {
-            drawCanvas(HorizontalBorder.getValue(), VerticalBorder.getValue());
+            drawCanvas(HORIZONTALBORDER.getValue(), VERTICALBORDER.getValue());
     }
 
     private void drawCanvas(char horizontalborder,char verticalborder) {
@@ -85,14 +84,14 @@ public class TwoDCanvas implements CanvasInterface {
 
     public void  addLine (Coordinate<Integer> start,Coordinate<Integer>  end) {
 
-        drawLine(start.getX(), start.getY(), end.getX(), end.getY(), LineChar.getValue());
+        drawLine(start.getX(), start.getY(), end.getX(), end.getY(), LINECHAR.getValue());
 
     }
 
 
     public void drawRectangle(Coordinate<Integer> start,Coordinate<Integer> end)
     {
-         addRectangle(start.getX(), start.getY(), end.getX(), end.getY() ,RectangleChar.getValue());
+         addRectangle(start.getX(), start.getY(), end.getX(), end.getY() ,RECTANGLECHAR.getValue());
     }
 
     private void addRectangle(int x1, int y1, int x2, int y2, char character)
@@ -116,7 +115,7 @@ public class TwoDCanvas implements CanvasInterface {
         int y = coordinate.getY();
 
         char origChar=defaultChar;
-        if(canvasArray[y][x]== HorizontalBorder.getValue()|| canvasArray[y][x]== VerticalBorder.getValue())
+        if(canvasArray[y][x]== HORIZONTALBORDER.getValue()|| canvasArray[y][x]== VERTICALBORDER.getValue())
         {
             return;
         }
@@ -128,29 +127,29 @@ public class TwoDCanvas implements CanvasInterface {
     }
 
     private void fill(int x,int y,char origChar, char color) {
-        Stack<TwoDCoordinate> stack = new Stack<>();
-        stack.add(new TwoDCoordinate<Integer>(y, x));
+        Stack<TwoDCoordinate<Integer>> stack = new Stack<>();
+        stack.add(new TwoDCoordinate<>(y, x));
         while (!stack.isEmpty()) {
-            TwoDCoordinate pop = stack.pop();
-            int xc = (Integer)pop.getX();
-            int yc = (Integer)pop.getY();
+            TwoDCoordinate<Integer> pop = stack.pop();
+            int xc = pop.getX();
+            int yc = pop.getY();
             if (canvasArray[xc][yc] != origChar)
                 continue;
             else
                 canvasArray[xc][yc] = color;
 
             if (xc - 1 >= 0 && canvasArray[xc- 1][yc] == origChar) {
-                stack.add(new TwoDCoordinate(xc - 1, pop.getY()));
+                stack.add(new TwoDCoordinate<>(xc - 1, pop.getY()));
             }
             if (xc + 1 < height + 1 && canvasArray[xc + 1][yc] == origChar) {
-                stack.add(new TwoDCoordinate(xc + 1, pop.getY()));
+                stack.add(new TwoDCoordinate<>(xc + 1, pop.getY()));
 
             }
             if (yc- 1 >= 0 && canvasArray[xc][yc - 1] == origChar) {
-                stack.add(new TwoDCoordinate(pop.getX(), yc - 1));
+                stack.add(new TwoDCoordinate<>(pop.getX(), yc - 1));
             }
             if (yc+ 1 < width + 1 && canvasArray[xc][yc + 1] == origChar) {
-                stack.add(new TwoDCoordinate(pop.getX(), yc + 1));
+                stack.add(new TwoDCoordinate<>(pop.getX(), yc + 1));
             }
 
 

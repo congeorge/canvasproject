@@ -37,10 +37,10 @@ public class LineOperation implements CanvasOperation{
     }
 
     private boolean validateNoOfArguments(String[] inputs)
-    {
+    {  boolean status=true;
         if(inputs==null || inputs.length < 4)
-            return false;
-        return true;
+            status= false;
+        return status;
 
    }
     private void validateAndSetArgumentsValue(String[] inputs) throws IncorrectParametersException {
@@ -56,8 +56,8 @@ public class LineOperation implements CanvasOperation{
                 throw new IncorrectParametersException("Line coordinates cannot be less than 0");
 
             coordinates=new Coordinate[2];
-            coordinates[0]=new TwoDCoordinate<Integer>(x1,y1);
-            coordinates[1]=new TwoDCoordinate<Integer>(x2,y2);
+            coordinates[0]=new TwoDCoordinate<>(x1,y1);
+            coordinates[1]=new TwoDCoordinate<>(x2,y2);
         } catch(NumberFormatException e)
         {
             throw new IncorrectParametersException("Line needs valid 4 co-ordinates : L x1 y1 x2 y2");

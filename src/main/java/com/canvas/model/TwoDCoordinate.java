@@ -1,6 +1,5 @@
 package com.canvas.model;
 import com.canvas.exception.IncorrectCoordinatesException;
-import com.canvas.model.Coordinate;
 
 public class TwoDCoordinate<D> implements Coordinate {
     D x;
