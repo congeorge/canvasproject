@@ -54,9 +54,9 @@ public class TwoDCanvas implements CanvasInterface {
                 canvasArray[i][x1] = drawChar;
             }
         } else if (y1 == y2) {
-            Arrays.fill(canvasArray[y1], x1, x2, drawChar);
-
-
+            for (int i = x1; i <= x2; i++) {
+                canvasArray[y1][i] = drawChar;
+            }
         }
 
     }

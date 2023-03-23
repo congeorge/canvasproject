@@ -14,12 +14,6 @@ public class QuitOperation implements CanvasOperation{
     public boolean execute (TwoDCanvas canvas) throws CanvasException {
         throw new QuitCanvasException("Quitting the Application");
     }
-/*    @Override
-    public void undo(TwoDCanvas canvas) {
-     // do nothing.
-
-    }*/
-
     @Override
     public Coordinate[] getCoordinates() {
         return new Coordinate[0];

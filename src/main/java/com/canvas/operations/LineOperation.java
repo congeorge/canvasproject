@@ -52,7 +52,7 @@ public class LineOperation implements CanvasOperation{
             if (x1 != x2 && y1 != y2) {
                 throw new IncorrectParametersException("Diagonal line is not supported");
             }
-            if(x1<0 || x2<=0 || y1<0|| y2<0)
+            if(x1<=0 || x2<=0 || y1<=0|| y2<=0)
                 throw new IncorrectParametersException("Line coordinates cannot be less than 0");
 
             coordinates=new Coordinate[2];
