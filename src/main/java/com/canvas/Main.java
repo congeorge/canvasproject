@@ -53,7 +53,7 @@ public class Main {
 
     public static void printHelp() {
         System.out.println("Please use any of the below valid commands:");
-        System.out.println(Operations.HelpMessage);
+        System.out.println(OperationsConstants.HelpMessage);
 
     }
 

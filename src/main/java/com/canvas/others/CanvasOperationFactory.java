@@ -12,25 +12,25 @@ public class CanvasOperationFactory  {
 		CanvasOperation operation = null;
 		String[] arguments =Arrays.copyOfRange(inputArgs,1,inputArgs.length);
 		switch (inputArgs[0]) {
-			case Operations.CANVAS:
+			case OperationsConstants.CANVAS:
 				operation = new DrawCanvasOperation(arguments);
 				break;
-			case Operations.LINE:
+			case OperationsConstants.LINE:
 				operation = new LineOperation(arguments);
 				break;
-			case Operations.RECTANGLE:
+			case OperationsConstants.RECTANGLE:
 				operation = new RectangleOperation(arguments);
 				break;
-			case Operations.FILL:
+			case OperationsConstants.FILL:
 				operation = new FillOperation(arguments);
 				break;
-			case Operations.UNDO:
+			case OperationsConstants.UNDO:
 				operation = new UndoCanvasOperation(arguments);
 				break;
-			case Operations.QUIT:
+			case OperationsConstants.QUIT:
 				operation = new QuitOperation(arguments);
 				break;
-			case Operations.Help:
+			case OperationsConstants.Help:
 				operation = new HelpOperation(arguments);
 				break;
 			default:

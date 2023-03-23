@@ -1,14 +1,15 @@
-C:\projects\canvas-main\src\main\java\com\canvas\others\Operations.java
 C:\projects\canvas-main\src\main\java\com\canvas\model\TwoDCoordinate.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\UndoCanvasOperation.java
 C:\projects\canvas-main\src\main\java\com\canvas\Main.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\QuitOperation.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\DrawCanvasOperation.java
+C:\projects\canvas-main\src\main\java\com\canvas\others\OperationsConstants.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\HelpOperation.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\LineOperation.java
 C:\projects\canvas-main\src\main\java\com\canvas\model\CanvasDrawingConstants.java
 C:\projects\canvas-main\src\main\java\com\canvas\model\TwoDCanvas.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\FillOperation.java
+C:\projects\canvas-main\src\main\java\com\canvas\exception\NoCanvasException.java
 C:\projects\canvas-main\src\main\java\com\canvas\model\CanvasInterface.java
 C:\projects\canvas-main\src\main\java\com\canvas\exception\IncorrectCoordinatesException.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\CanvasOperation.java

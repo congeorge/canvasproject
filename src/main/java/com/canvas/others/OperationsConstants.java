@@ -1,6 +1,6 @@
 package com.canvas.others;
 
-public interface Operations {
+public interface OperationsConstants {
     String CANVAS="C";
     String LINE="L";
     String RECTANGLE="R";

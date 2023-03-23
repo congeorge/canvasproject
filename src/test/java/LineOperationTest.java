@@ -1,7 +1,6 @@
 import com.canvas.exception.CanvasException;
 import com.canvas.exception.IncorrectParametersException;
 import com.canvas.operations.LineOperation;
-import com.canvas.operations.RectangleOperation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
