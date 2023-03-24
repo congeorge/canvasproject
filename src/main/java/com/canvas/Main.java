@@ -18,7 +18,7 @@ public class Main {
         CanvasOperation operation = null;
         boolean exit = false;
         do {
-
+            System.out.print("Enter Command:");
             String input = bufferedReader.readLine().trim();
             if (input != null && !input.isEmpty()) {
                 String[] inputs = input.split("\\s+");

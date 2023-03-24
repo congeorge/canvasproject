@@ -20,7 +20,7 @@ public class LineOperation implements CanvasOperation{
         if(canvas!=null)
         {
             if (canvas.isWithinCanvas(coordinates[0]) && canvas.isWithinCanvas(coordinates[1])) {
-                canvas.addLine(coordinates[0], coordinates[1]);
+                canvas.drawLine(coordinates[0], coordinates[1]);
                 return true;
             } else
                 throw new IncorrectCoordinatesException("Execution Failed:Cordinates are not within the Canvas");

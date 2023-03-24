@@ -42,7 +42,7 @@ public class FillOperation implements CanvasOperation{
     public boolean execute (TwoDCanvas canvas) throws CanvasException {
         if (canvas != null) {
            if (canvas.isWithinCanvas(coordinates[0])) {
-                canvas.doFill(coordinates[0],color);
+                canvas.drawFill(coordinates[0],color);
                 return true;
             } else
                 throw new IncorrectCoordinatesException("Execution Failed:Cordinates are not within the Canvas");

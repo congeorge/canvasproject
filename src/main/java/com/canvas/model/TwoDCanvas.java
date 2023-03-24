@@ -1,23 +1,30 @@
 package com.canvas.model;
 
 
+import com.canvas.exception.CoordinatesNotWithinCanvasException;
+
 import java.util.Arrays;
 import java.util.Stack;
 import static com.canvas.model.CanvasDrawingConstants.*;
 
 public class TwoDCanvas implements CanvasInterface {
 
-    private int height;
-    private int width;
     private char[][] canvasArray;
 
+    public Coordinate<Integer> getDimension() {
+        return dimension;
+    }
+
+    Coordinate<Integer> dimension;
     private char defaultChar='\u0000';
 
 
     public TwoDCanvas(Coordinate<Integer> size ) {
-        this.width=size.getX();
-        this.height=size.getY();
-        canvasArray = new char[height+2][width+2];
+        dimension=size;
+     /*   this.width=size.getX();
+        this.height=size.getY();*/
+
+        canvasArray = new char[dimension.getY()+2][dimension.getX()+2];
 
 
     }
@@ -28,6 +35,8 @@ public class TwoDCanvas implements CanvasInterface {
     }
 
     private void drawCanvas(char horizontalborder,char verticalborder) {
+        int width=dimension.getX();
+        int height=dimension.getY();
         drawBorder(0, 0, width+1 , 0,horizontalborder );
         drawBorder(0, 1, 0, height + 1, verticalborder);
         drawBorder(width+1 , 1, width+1, height , verticalborder);
@@ -53,7 +62,7 @@ public class TwoDCanvas implements CanvasInterface {
         }
 
     }
-    private void drawLine(int x1, int y1, int x2, int y2, char drawChar) {
+    private void doLine(int x1, int y1, int x2, int y2, char drawChar) {
         if (x1 == x2) {
             for (int i = y1; i <= y2; i++) {
                 canvasArray[i][x1] = drawChar;
@@ -77,35 +86,38 @@ public class TwoDCanvas implements CanvasInterface {
         return results.toString();
     }
 
-    public boolean isWithinCanvas(Coordinate<Integer> coordinate) {
+    public boolean isWithinCanvas(Coordinate<Integer> coordinate) throws CoordinatesNotWithinCanvasException {
+        int width=dimension.getX();
+        int height=dimension.getY();
         boolean status = true;
         if (coordinate.getX() < 0 || coordinate.getX() > (width) ||coordinate.getY() < 0 ||coordinate.getY() > (height)) {
-            System.out.println("Co-ordinates are outside of the Canvas");
-            status = false;
+            status=false;
+            throw new CoordinatesNotWithinCanvasException("Co-ordinates are outside of the Canvas");
+
         }
         return status;
     }
 
 
-    public void  addLine (Coordinate<Integer> start,Coordinate<Integer>  end) {
+    public void  drawLine (Coordinate<Integer> start,Coordinate<Integer>  end) {
 
-        drawLine(start.getX(), start.getY(), end.getX(), end.getY(), LINECHAR.getValue());
+        doLine(start.getX(), start.getY(), end.getX(), end.getY(), LINECHAR.getValue());
 
     }
 
 
     public void drawRectangle(Coordinate<Integer> start,Coordinate<Integer> end)
     {
-         addRectangle(start.getX(), start.getY(), end.getX(), end.getY() ,RECTANGLECHAR.getValue());
+        doRectangle(start.getX(), start.getY(), end.getX(), end.getY() ,RECTANGLECHAR.getValue());
     }
 
-    private void addRectangle(int x1, int y1, int x2, int y2, char character)
+    private void doRectangle(int x1, int y1, int x2, int y2, char character)
     {
         try{
-            drawLine(x1, y1, x2, y1,character);
-            drawLine(x1, y1, x1, y2,character);
-            drawLine(x2, y1, x2, y2, character);
-            drawLine(x1, y2, x2, y2,character);
+            doLine(x1, y1, x2, y1,character);
+            doLine(x1, y1, x1, y2,character);
+            doLine(x2, y1, x2, y2, character);
+            doLine(x1, y2, x2, y2,character);
             }
             catch(Exception e){
                 // log exception somewhere
@@ -114,7 +126,7 @@ public class TwoDCanvas implements CanvasInterface {
             }
 
         }
-    public void doFill(Coordinate<Integer> coordinate,char color)
+    public void drawFill(Coordinate<Integer> coordinate,char color)
     {
         int x = coordinate.getX();
         int y = coordinate.getY();
@@ -128,11 +140,13 @@ public class TwoDCanvas implements CanvasInterface {
         {
             origChar=canvasArray[y][x];
         }
-        fill(x,y,origChar,color);
+        dofill(x,y,origChar,color);
     }
 
-    private void fill(int x,int y,char origChar, char color) {
+    private void dofill(int x,int y,char origChar, char color) {
         Stack<TwoDCoordinate<Integer>> stack = new Stack<>();
+        int width=dimension.getX();
+        int height=dimension.getY();
         stack.add(new TwoDCoordinate<>(y, x));
         while (!stack.isEmpty()) {
             TwoDCoordinate<Integer> pop = stack.pop();
