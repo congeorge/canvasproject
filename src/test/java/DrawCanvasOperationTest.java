@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class DrawCanvasOperationTest {
+class DrawCanvasOperationTest {
     @Test
     void DrawCanvasOperationTest_CorrectNumberOfCommandParameters() throws Exception {
         DrawCanvasOperation operation = new DrawCanvasOperation(new String[]{"20", "4"});

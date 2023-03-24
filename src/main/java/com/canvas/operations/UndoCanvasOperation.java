@@ -15,11 +15,6 @@ public class UndoCanvasOperation implements CanvasOperation{
         return true;
     }
 
-  /*  @Override
-    public void undo(TwoDCanvas canvas) {
-        // do nothing.
-    }
-*/
     @Override
     public Coordinate[] getCoordinates() {
         return new Coordinate[0];

@@ -19,5 +19,6 @@ C:\projects\canvas-main\src\main\java\com\canvas\exception\IncorrectParametersEx
 C:\projects\canvas-main\src\main\java\com\canvas\others\CanvasOperationExecutor.java
 C:\projects\canvas-main\src\main\java\com\canvas\others\CanvasOperationFactory.java
 C:\projects\canvas-main\src\main\java\com\canvas\others\OperationConstants.java
+C:\projects\canvas-main\src\main\java\com\canvas\exception\CoordinatesNotWithinCanvasException.java
 C:\projects\canvas-main\src\main\java\com\canvas\exception\NoSuchOperationException.java
 C:\projects\canvas-main\src\main\java\com\canvas\exception\QuitCanvasException.java

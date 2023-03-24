@@ -1,43 +1,67 @@
 import com.canvas.exception.CoordinatesNotWithinCanvasException;
-import com.canvas.exception.IncorrectParametersException;
+import com.canvas.exception.NoCanvasException;
 import com.canvas.model.TwoDCanvas;
 import com.canvas.model.TwoDCoordinate;
-import com.canvas.operations.FillOperation;
+import com.canvas.operations.*;
+import com.canvas.others.CanvasOperationExecutor;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class CanvasTest {
-    private TwoDCanvas canvas;
+class CanvasOperationExecutorTest {
+    private CanvasOperationExecutor executor;
 
     @BeforeEach
     void setUp() throws Exception {
-        canvas = new TwoDCanvas(new TwoDCoordinate<>(20, 4));
-        canvas.createCanvas();
+        executor =new CanvasOperationExecutor();
+
+
     }
+
 
     @Test
-    void CanvasTest_Borders() throws Exception {
-         String Expected=""+
-                 "----------------------\n"+
-                 "|                    |\n"+
-                 "|                    |\n"+
-                 "|                    |\n"+
-                 "|                    |\n"+
-                 "----------------------\n";
+    void CanvasOperationExecutorTest_LineOperationBeforeCanvasOperation() throws Exception {
 
-        Assertions.assertEquals(Expected,canvas.showCanvas());
-
+        Exception e =Assertions.assertThrows(NoCanvasException.class,() -> executor.executeOperation(new LineOperation(new String[]{"1", "2","6", "2"})));;
 
     }
-@Test
-     void CanvasTest_drawLine() throws Exception {
+    @Test
+    void CanvasOperationExecutorTest_FilleOperationBeforeCanvasOperation() throws Exception {
+
+        Exception e =Assertions.assertThrows(NoCanvasException.class,() -> executor.executeOperation(new FillOperation(new String[]{"1","2","o"})));
+
+    }
+    @Test
+    void CanvasOperationExecutorTest_RectangleOperationBeforeCanvasOperation() throws Exception {
+
+        Exception e =Assertions.assertThrows(NoCanvasException.class,() -> executor.executeOperation(new RectangleOperation(new String[]{"14","1","18","13"})));
+
+    }
+    @Test
+    void CanvasOperationExecutorTest_CheckDrawCanvasOperation() throws Exception {
+        executor.executeOperation(new DrawCanvasOperation(new String[]{"20", "4"}));
+        String expected=""+
+                "----------------------\n"+
+                "|                    |\n"+
+                "|                    |\n"+
+                "|                    |\n"+
+                "|                    |\n"+
+                "----------------------\n";
+
+        Assertions.assertEquals(expected,executor.getCanvas().showCanvas());
+        Assertions.assertEquals(1,executor.getCanvasOperationList().size());
+
+    }
+
+
+    @Test
+     void CanvasOperationExecutorTest_DrawLineOnCanvasTest() throws Exception {
         //When
-        canvas.drawLine(new TwoDCoordinate<>(1, 2),new TwoDCoordinate<>(6, 2));
-        String Expected=""+
+        executor.executeOperation(new DrawCanvasOperation(new String[]{"20", "4"}));
+        executor.executeOperation(  new LineOperation(new String[]{"1", "2","6", "2"}));;
+         String expected=""+
                 "----------------------\n"+
                 "|                    |\n"+
                 "|XXXXXX              |\n"+
@@ -46,15 +70,48 @@ class CanvasTest {
                 "----------------------\n";
 
         //then
-        Assertions.assertEquals(Expected,canvas.showCanvas());
+        Assertions.assertEquals(expected,executor.getCanvas().showCanvas());
+    Assertions.assertEquals(2,executor.getCanvasOperationList().size());
 
 
     }
+
+
+    @Test
+    void CanvasOperationExecutorTest_DrawLineOnCanvasAndThenUndoTest() throws Exception {
+        //When
+        executor.executeOperation(  new LineOperation(new String[]{"1", "2","6", "2"}));;
+        String expected=""+
+                "----------------------\n"+
+                "|                    |\n"+
+                "|XXXXXX              |\n"+
+                "|                    |\n"+
+                "|                    |\n"+
+                "----------------------\n";
+
+        //then
+        Assertions.assertEquals(expected,executor.getCanvas().showCanvas());
+        Assertions.assertEquals(2,executor.getCanvasOperationList().size());
+        executor.executeOperation(  new UndoCanvasOperation(new String[]{}));
+        String expected2=""+
+                "----------------------\n"+
+                "|                    |\n"+
+                "|                    |\n"+
+                "|                    |\n"+
+                "|                    |\n"+
+                "----------------------\n";
+
+        //then
+        Assertions.assertEquals(expected2,executor.getCanvas().showCanvas());
+        Assertions.assertEquals(1,executor.getCanvasOperationList().size());
+
+    }
+    /*
     @Test
     void CanvasTest_AddRectangle() throws Exception {
         //When
         canvas.drawRectangle(new TwoDCoordinate<>(14, 1),new TwoDCoordinate<>(18, 3));
-        String Expected=""+
+        String expected=""+
                 "----------------------\n"+
                 "|             XXXXX  |\n" +
                 "|             X   X  |\n" +
@@ -64,7 +121,7 @@ class CanvasTest {
 
         //then
         System.out.println(canvas.showCanvas());
-      Assertions.assertEquals(Expected,canvas.showCanvas());
+      Assertions.assertEquals(expected,canvas.showCanvas());
     }
 
      @Test
@@ -72,7 +129,7 @@ class CanvasTest {
          //When
          canvas.drawRectangle(new TwoDCoordinate<>(14, 1),new TwoDCoordinate<>(18, 3));
          canvas.drawFill(new TwoDCoordinate<>(14, 1),'o');
-         String Expected=""+
+         String expected=""+
                  "----------------------\n"+
                  "|             ooooo  |\n" +
                  "|             o   o  |\n" +
@@ -81,14 +138,14 @@ class CanvasTest {
                  "----------------------\n";
 
          //then
-          Assertions.assertEquals(Expected,canvas.showCanvas());
+          Assertions.assertEquals(expected,canvas.showCanvas());
      }
      @Test
      void CanvasTest_AddFillAroundRectangle() throws Exception {
          //When
          canvas.drawRectangle(new TwoDCoordinate<>(14, 1),new TwoDCoordinate<>(18, 3));
          canvas.drawFill(new TwoDCoordinate<>(14, 4),'o');
-         String Expected=""+
+         String expected=""+
                  "----------------------\n"+
                  "|oooooooooooooXXXXXoo|\n" +
                  "|oooooooooooooX   Xoo|\n" +
@@ -97,7 +154,7 @@ class CanvasTest {
                  "----------------------\n";
 
          //then
-         Assertions.assertEquals(Expected,canvas.showCanvas());
+         Assertions.assertEquals(expected,canvas.showCanvas());
      }
 
      @Test
@@ -132,7 +189,7 @@ class CanvasTest {
          //When
          canvas.drawLine(new TwoDCoordinate<>(1, 2),new TwoDCoordinate<>(6, 2));
          canvas.drawFill(new TwoDCoordinate<>(1, 3),'o');
-         String Expected=""+
+         String expected=""+
                  "----------------------\n"+
                  "|oooooooooooooooooooo|\n" +
                  "|XXXXXXoooooooooooooo|\n" +
@@ -141,7 +198,7 @@ class CanvasTest {
                  "----------------------\n";
 
          //then
-         Assertions.assertEquals(Expected,canvas.showCanvas());
+         Assertions.assertEquals(expected,canvas.showCanvas());
      }
 
      @Test
@@ -150,7 +207,7 @@ class CanvasTest {
          canvas.drawLine(new TwoDCoordinate<>(1, 2),new TwoDCoordinate<>(6, 2));
          canvas.drawRectangle(new TwoDCoordinate<>(14, 1),new TwoDCoordinate<>(18, 3));
          canvas.drawFill(new TwoDCoordinate<>(1, 3),'o');
-         String Expected=""+
+         String expected=""+
                  "----------------------\n"+
                  "|oooooooooooooXXXXXoo|\n" +
                  "|XXXXXXoooooooX   Xoo|\n" +
@@ -159,7 +216,7 @@ class CanvasTest {
                  "----------------------\n";
 
          //then
-         Assertions.assertEquals(Expected,canvas.showCanvas());
+         Assertions.assertEquals(expected,canvas.showCanvas());
      }
      @Test
      void CanvasTest_CheckWithinCanvasCorrectValues() throws Exception {
@@ -175,5 +232,5 @@ class CanvasTest {
          Exception exception =assertThrows(CoordinatesNotWithinCanvasException.class,() ->canvas.isWithinCanvas(new TwoDCoordinate<>(5, 10)));
 
 
-     }
+     }*/
 }

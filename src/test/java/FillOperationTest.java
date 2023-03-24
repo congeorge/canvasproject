@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class FillOperationTest {
+class FillOperationTest {
     @Test
     void FillOperationTest_CorrectNumberOfCommandParameters() throws CanvasException {
          FillOperation operation = new FillOperation(new String[]{"1","2","o"});

@@ -5,6 +5,8 @@ import com.canvas.operations.CanvasOperation;
 import com.canvas.operations.DrawCanvasOperation;
 import com.canvas.operations.UndoCanvasOperation;
 import com.canvas.model.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ public class CanvasOperationExecutor {
     private void setCanvas(TwoDCanvas canvas) {
         this.canvas = canvas;
     }
+    private static final Logger logger = LogManager.getLogger(CanvasOperationExecutor.class);
 
     private TwoDCanvas canvas;
 
@@ -65,38 +68,23 @@ public class CanvasOperationExecutor {
                 try {
                     executeOperation(x);
                 } catch (CanvasException e) {
-                    throw new RuntimeException(e);
+                    logger.error(e.getMessage());
                 }
 
             });
         } else if (length == 1) {
             canvasOperationList.clear();
             canvas = null;
-            System.out.println("All Clear :Ready to Start again");
+            logger.info("All Clear :Ready to Start again");
         } else
-            System.out.println("Start again: Nothing to undo");
+            logger.info("Start again: Nothing to undo");
 
 
     }
 
-    /*    public void undoLastOperation() {
-            if (canvas != null) {
-                int length = canvasOperationList.size();
-                if (length > 1) {
-                    canvasOperationList.get(length - 1).undo(canvas);
-                    canvasOperationList.remove(length - 1);
-                } else if (length == 1) {
-                    canvasOperationList.clear();
-                    canvas = null;
-                    System.out.println("All Clear :Ready to Start again");
-                }
-            } else
-                System.out.println("Start again: Nothing to undo");
-
-        }*/
     public void displayCanvas() {
-        canvasOperationList.forEach(System.out::println);
+        canvasOperationList.forEach(logger::debug);
         if (canvas != null)
-            System.out.println(canvas.showCanvas());
+            logger.info(canvas.showCanvas());
     }
 }

@@ -22,9 +22,9 @@ public class TwoDCoordinate<D> implements Coordinate {
     @Override
     public D getZ()  {
         try {
-            throw new IncorrectCoordinatesException("Not Supported");
+            throw new IncorrectCoordinatesException("Only two dimensional Coordinates are Supported");
         } catch (IncorrectCoordinatesException e) {
-            System.out.println("Only two dimensional Coordinates are Supported");
+          e.printStackTrace();
         }
         return null;
     }

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class LineOperationTest {
+ class LineOperationTest {
     @Test
     void LineOperationTest_CorrectNumberOfCommandParameters() throws CanvasException {
         LineOperation operation = new LineOperation(new String[]{"1", "2","6", "2"});

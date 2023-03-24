@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class OperationFactoryTest {
+class OperationFactoryTest {
 
     @Test
     void OperationFactoryTest_getValidDrawCanvasOperation() throws Exception {
@@ -40,7 +40,7 @@ public class OperationFactoryTest {
         Assertions.assertEquals(expectedFill.getCoordinates()[0].getX(),operation.getCoordinates()[0].getX());
         Assertions.assertEquals(expectedFill.getCoordinates()[0].getY(),operation.getCoordinates()[0].getY());
         FillOperation fillOperation =((FillOperation)operation);
-        Assertions.assertEquals(fillOperation.getColor(), 'o');
+        Assertions.assertEquals('o',fillOperation.getColor());
 
     }
     @Test

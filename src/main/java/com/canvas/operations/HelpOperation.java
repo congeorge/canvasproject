@@ -3,8 +3,11 @@ package com.canvas.operations;
 import com.canvas.model.Coordinate;
 import com.canvas.model.TwoDCanvas;
 import com.canvas.others.OperationConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class HelpOperation implements CanvasOperation{
+    private static final Logger logger = LogManager.getLogger(HelpOperation.class);
     public HelpOperation(String[] inputArgs) {
 
     }
@@ -22,6 +25,6 @@ public class HelpOperation implements CanvasOperation{
     }
 
     private void printHelp() {
-        System.out.println(OperationConstants.HELPMESSAGE);
+      logger.info(OperationConstants.HELPMESSAGE);
     }
 }

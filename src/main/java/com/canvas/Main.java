@@ -4,6 +4,8 @@ import com.canvas.exception.CanvasException;
 import com.canvas.exception.QuitCanvasException;
 import com.canvas.operations.CanvasOperation;
 import com.canvas.others.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -11,6 +13,7 @@ import java.io.InputStreamReader;
 public class Main {
 
     private static CanvasOperationExecutor executor = new CanvasOperationExecutor();
+    private static final Logger logger = LogManager.getLogger(Main.class);
 
     public static void main(String[] args) throws Exception {
         printHelp();
@@ -18,7 +21,7 @@ public class Main {
         CanvasOperation operation = null;
         boolean exit = false;
         do {
-            System.out.print("Enter Command:");
+            logger.info("Enter Command:");
             String input = bufferedReader.readLine().trim();
             if (input != null && !input.isEmpty()) {
                 String[] inputs = input.split("\\s+");
@@ -26,22 +29,22 @@ public class Main {
                     operation = CanvasOperationFactory.getOperation(inputs);
                     executor.executeOperation(operation);
                 } catch (QuitCanvasException e) {
-                    System.out.println(e.getMessage());
+                    logger.error(e.getMessage());
                     exit = true;
 
                 } catch (CanvasException e) {
-                    System.out.println(e.getMessage());
+                    logger.error(e.getMessage());
                     printHelp();
-                    continue;
+
                 }
                 catch (Exception e) {
-                    System.out.println("Something's Wrong: Exiting Application");
+                    logger.error("Something's Wrong: Exiting Application");
                     e.printStackTrace();
                     exit=true;
                 }
             } else {
                 printHelp();
-                continue;
+
             }
         } while (!exit);
 
@@ -50,8 +53,8 @@ public class Main {
     }
 
     public static void printHelp() {
-        System.out.println("Please use any of the below valid commands:");
-        System.out.println(OperationConstants.HELPMESSAGE);
+        logger.info("Please use any of the below valid commands:");
+        logger.info(OperationConstants.HELPMESSAGE);
 
     }
 

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class RectangleOperationTest {
+class RectangleOperationTest {
     @Test
     void RectangleOperationTest_CorrectNumberOfCommandParameters() throws CanvasException {
          RectangleOperation operation = new RectangleOperation(new String[]{"14","1","18","13"});

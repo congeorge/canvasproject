@@ -21,9 +21,6 @@ public class TwoDCanvas implements CanvasInterface {
 
     public TwoDCanvas(Coordinate<Integer> size ) {
         dimension=size;
-     /*   this.width=size.getX();
-        this.height=size.getY();*/
-
         canvasArray = new char[dimension.getY()+2][dimension.getX()+2];
 
 
@@ -91,8 +88,7 @@ public class TwoDCanvas implements CanvasInterface {
         int height=dimension.getY();
         boolean status = true;
         if (coordinate.getX() < 0 || coordinate.getX() > (width) ||coordinate.getY() < 0 ||coordinate.getY() > (height)) {
-            status=false;
-            throw new CoordinatesNotWithinCanvasException("Co-ordinates are outside of the Canvas");
+             throw new CoordinatesNotWithinCanvasException("Co-ordinates are outside of the Canvas");
 
         }
         return status;
@@ -113,19 +109,12 @@ public class TwoDCanvas implements CanvasInterface {
 
     private void doRectangle(int x1, int y1, int x2, int y2, char character)
     {
-        try{
+
             doLine(x1, y1, x2, y1,character);
             doLine(x1, y1, x1, y2,character);
             doLine(x2, y1, x2, y2, character);
             doLine(x1, y2, x2, y2,character);
-            }
-            catch(Exception e){
-                // log exception somewhere
-                System.out.println("Not possible to draw for a given input.");
-
-            }
-
-        }
+       }
     public void drawFill(Coordinate<Integer> coordinate,char color)
     {
         int x = coordinate.getX();
