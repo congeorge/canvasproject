@@ -3,20 +3,15 @@ package com.canvas.operations;
 import com.canvas.exception.IncorrectParametersException;
 import com.canvas.model.*;
 
-public class DrawCanvasOperation implements CanvasOperation{
+public class DrawCanvasOperation<T> implements CanvasOperation{
 
-   private Coordinate<Integer>[] coordinates;
+   private Coordinate<T>[] coordinates;
 
 
     public DrawCanvasOperation (String[] inputs) throws IncorrectParametersException {
         if(!validateNoOfArguments(inputs))
             throw new IncorrectParametersException("Canvas needs height and width to be specified: C W H");
         validateAndSetArgumentsValue(inputs);
-        int width=coordinates[0].getX();
-        int height=coordinates[0].getY();
-        if(width<=0 || height<=0)
-            throw new IncorrectParametersException("Canvas needs height and width to be greater than 0");
-
     }
     @Override
     public boolean execute (TwoDCanvas canvas) {
@@ -30,14 +25,15 @@ public class DrawCanvasOperation implements CanvasOperation{
             status=false;
 
          return status;
-
-
-
     }
     private void validateAndSetArgumentsValue(String[] inputs) throws IncorrectParametersException {
         try {
+            int width= Integer.parseInt((inputs[0]));
+            int height= Integer.parseInt((inputs[1]));
+            if(width<=0 || height<=0)
+                throw new IncorrectParametersException("Canvas needs height and width to be greater than 0");
             coordinates = new Coordinate[1];
-            coordinates[0]=new TwoDCoordinate<>(Integer.valueOf(inputs[0]),Integer.valueOf(inputs[1]));
+            coordinates[0]=new TwoDCoordinate<>(width,height);
         } catch(NumberFormatException e)
         {
             throw new IncorrectParametersException("Canvas width and height should be valid numbers");

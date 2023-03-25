@@ -10,4 +10,6 @@ public interface CanvasOperation<C> {
     boolean execute(TwoDCanvas canvas) throws CanvasException;
 
     Coordinate<C>[] getCoordinates();
+
+
 }

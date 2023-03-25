@@ -69,13 +69,11 @@ public class FillOperation implements CanvasOperation{
                 throw new IncorrectParametersException("Fill coordinates cannot be less than 0");
 
             coordinates = new Coordinate[1];
-            coordinates[0]=new TwoDCoordinate<Integer>(x,y);
+            coordinates[0]=new TwoDCoordinate<>(x,y);
             color=inputs[2].charAt(0);
 
         } catch (NumberFormatException e) {
             throw new IncorrectParametersException("All Fill co-ordinates should be valid numbers");
         }
-
-
     }
 }
