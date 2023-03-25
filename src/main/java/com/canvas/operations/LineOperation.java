@@ -54,7 +54,6 @@ public class LineOperation implements CanvasOperation{
             }
             if(x1<=0 || x2<=0 || y1<=0|| y2<=0)
                 throw new IncorrectParametersException("Line coordinates cannot be less than 0");
-
             coordinates=new Coordinate[2];
             coordinates[0]=new TwoDCoordinate<>(x1,y1);
             coordinates[1]=new TwoDCoordinate<>(x2,y2);

@@ -10,7 +10,7 @@ import com.canvas.model.TwoDCoordinate;
 
 public class RectangleOperation implements CanvasOperation {
 
-    private Coordinate<Integer>[] coordinates;
+    private Coordinate[] coordinates;
 
 
     public RectangleOperation(String[] inputs) throws IncorrectParametersException {
@@ -59,7 +59,7 @@ public class RectangleOperation implements CanvasOperation {
             if(x1<=0 || x2<=0 || y1<=0|| y2<=0)
                 throw new IncorrectParametersException("Rectangle coordinates cannot be less than 0");
             coordinates=new Coordinate[2];
-            coordinates[0]=new TwoDCoordinate<>(x1,y1);
+            coordinates[0]=new TwoDCoordinate<Integer>(x1,y1);
             coordinates[1]=new TwoDCoordinate<>(x2,y2);
         } catch (NumberFormatException e) {
             throw new IncorrectParametersException("All Rectangle co-ordinates should be valid numbers");
