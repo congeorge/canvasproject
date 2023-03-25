@@ -4,7 +4,7 @@
         <Console name="ConsoleAppender" target="SYSTEM_OUT">
             <PatternLayout pattern="%msg%n" />
         </Console>
-        <File name="FileAppender" fileName="application-${date:yyyyMMdd}.log" immediateFlush="false" append="true">
+        <File name="FileAppender" fileName="CanvasApplication-${date:yyyyMMdd}.log" immediateFlush="false" append="true">
             <PatternLayout pattern="%msg%n"/>
         </File>
     </Appenders>
