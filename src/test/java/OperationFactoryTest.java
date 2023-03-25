@@ -11,7 +11,7 @@ class OperationFactoryTest {
 
     @Test
     void OperationFactoryTest_getValidDrawCanvasOperation() throws Exception {
-        DrawCanvasOperation<T> expectedCanvas = new DrawCanvasOperation<T>(new String[]{"20", "4"});
+        DrawCanvasOperation expectedCanvas = new DrawCanvasOperation(new String[]{"20", "4"});
         CanvasOperation operation = CanvasOperationFactory.getOperation(new String[]{"C", "20", "4"});
         Assertions.assertTrue((operation instanceof DrawCanvasOperation));
         Assertions.assertEquals(expectedCanvas.getCoordinates()[0].getY(), operation.getCoordinates()[0].getY());

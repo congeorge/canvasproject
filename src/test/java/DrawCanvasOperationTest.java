@@ -9,29 +9,29 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class DrawCanvasOperationTest {
     @Test
     void DrawCanvasOperationTest_CorrectNumberOfCommandParameters() throws Exception {
-        DrawCanvasOperation<T> operation = new DrawCanvasOperation<T>(new String[]{"20", "4"});
+        DrawCanvasOperation operation = new DrawCanvasOperation(new String[]{"20", "4"});
          Assertions.assertEquals(20,operation.getCoordinates()[0].getX());
         Assertions.assertEquals(4,operation.getCoordinates()[0].getY());
     }
 
     @Test
     void DrawCanvasOperationTest_IncorrectNumberOfCommandParameters() {
-        Exception exception = assertThrows(IncorrectParametersException.class, () -> new DrawCanvasOperation<T>(new String[]{"20"}));
+        Exception exception = assertThrows(IncorrectParametersException.class, () -> new DrawCanvasOperation(new String[]{"20"}));
         assertEquals("Canvas needs height and width to be specified: C W H", exception.getMessage());
     }
     @Test
     void DrawCanvasOperationTest_InCorrectParameters_WithZeroWidth() {
-        Exception exception = assertThrows(IncorrectParametersException.class, () -> new DrawCanvasOperation<T>(new String[]{"0","4"}));
+        Exception exception = assertThrows(IncorrectParametersException.class, () -> new DrawCanvasOperation(new String[]{"0","4"}));
         assertEquals("Canvas needs height and width to be greater than 0", exception.getMessage());
     }
     @Test
     void DrawCanvasOperationTest_InCorrectParameters_WithNegativeValues()  {
-        Exception exception = assertThrows(IncorrectParametersException.class, () -> new DrawCanvasOperation<T>(new String[]{"-20","-5"}));
+        Exception exception = assertThrows(IncorrectParametersException.class, () -> new DrawCanvasOperation(new String[]{"-20","-5"}));
         assertEquals("Canvas needs height and width to be greater than 0", exception.getMessage());
     }
     @Test
     void DrawCanvasOperationTest_InCorrectCommandParameters_WithNonValidValues()  {
-        Exception exception = assertThrows(IncorrectParametersException.class, () ->  new DrawCanvasOperation<T>(new String[]{"a","b"}));
+        Exception exception = assertThrows(IncorrectParametersException.class, () ->  new DrawCanvasOperation(new String[]{"a","b"}));
         assertEquals("Canvas width and height should be valid numbers", exception.getMessage());
     }
 

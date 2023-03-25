@@ -1,7 +1,7 @@
 package com.canvas.model;
 import com.canvas.exception.IncorrectCoordinatesException;
 
-public class TwoDCoordinate<D> implements Coordinate {
+public class TwoDCoordinate<D extends Number> implements Coordinate<Number> {
     D x;
     D y;
 

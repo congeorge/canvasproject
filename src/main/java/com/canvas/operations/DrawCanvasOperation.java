@@ -3,9 +3,9 @@ package com.canvas.operations;
 import com.canvas.exception.IncorrectParametersException;
 import com.canvas.model.*;
 
-public class DrawCanvasOperation<T> implements CanvasOperation{
+public class DrawCanvasOperation implements CanvasOperation{
 
-   private Coordinate<T>[] coordinates;
+   private Coordinate[] coordinates;
 
 
     public DrawCanvasOperation (String[] inputs) throws IncorrectParametersException {

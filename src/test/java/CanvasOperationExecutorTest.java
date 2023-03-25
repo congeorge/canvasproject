@@ -38,7 +38,7 @@ class CanvasOperationExecutorTest {
     }
     @Test
     void CanvasOperationExecutorTest_CheckDrawCanvasOperation() throws Exception {
-        executor.executeOperation(new DrawCanvasOperation<T>(new String[]{"20", "4"}));
+        executor.executeOperation(new DrawCanvasOperation(new String[]{"20", "4"}));
         String expected=""+
                 "----------------------\n"+
                 "|                    |\n"+
@@ -56,7 +56,7 @@ class CanvasOperationExecutorTest {
     @Test
      void CanvasOperationExecutorTest_DrawLineOnCanvasTest() throws Exception {
         //When
-        executor.executeOperation(new DrawCanvasOperation<T>(new String[]{"20", "4"}));
+        executor.executeOperation(new DrawCanvasOperation(new String[]{"20", "4"}));
         executor.executeOperation(  new LineOperation(new String[]{"1", "2","6", "2"}));;
          String expected=""+
                 "----------------------\n"+
@@ -78,7 +78,7 @@ class CanvasOperationExecutorTest {
     void CanvasOperationExecutorTest_DrawRectangleOnCanvasAndThenUndoTest() throws Exception {
 
         //When
-        executor.executeOperation(new DrawCanvasOperation<T>(new String[]{"20", "4"}));
+        executor.executeOperation(new DrawCanvasOperation(new String[]{"20", "4"}));
         executor.executeOperation(  new RectangleOperation(new String[]{"14", "1","18", "3"}));;
         String expected=""+
                 "----------------------\n"+
@@ -110,7 +110,7 @@ class CanvasOperationExecutorTest {
     void CanvasOperationExecutorTest_DrawLineAndRectangleAndDoFillOnCanvasAndThenUndoTest() throws Exception {
 
         //When
-        executor.executeOperation(new DrawCanvasOperation<T>(new String[]{"20", "4"}));
+        executor.executeOperation(new DrawCanvasOperation(new String[]{"20", "4"}));
         executor.executeOperation(  new LineOperation(new String[]{"1", "2","6", "2"}));;
         executor.executeOperation(  new RectangleOperation(new String[]{"14", "1","18", "3"}));;
         executor.executeOperation(  new FillOperation(new String[]{"10", "3","o"}));;

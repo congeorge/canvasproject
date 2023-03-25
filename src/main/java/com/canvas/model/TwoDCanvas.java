@@ -114,7 +114,7 @@ public class TwoDCanvas implements CanvasInterface {
             doLine(x1, y1, x1, y2,character);
             doLine(x2, y1, x2, y2, character);
             doLine(x1, y2, x2, y2,character);
-       }
+        }
     public void drawFill(Coordinate<Integer> coordinate,char color)
     {
         int x = coordinate.getX();
