@@ -1,9 +1,10 @@
 package com.canvas.others;
 
 import com.canvas.exception.CanvasException;
+import com.canvas.exception.HelpCanvasException;
+import com.canvas.exception.QuitCanvasException;
 import com.canvas.operations.CanvasOperation;
 import com.canvas.operations.DrawCanvasOperation;
-import com.canvas.operations.UndoCanvasOperation;
 import com.canvas.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,6 +18,7 @@ public class CanvasOperationExecutor {
     private void setCanvas(TwoDCanvas canvas) {
         this.canvas = canvas;
     }
+
     private static final Logger logger = LogManager.getLogger(CanvasOperationExecutor.class);
 
     private TwoDCanvas canvas;
@@ -32,15 +34,10 @@ public class CanvasOperationExecutor {
     private final List<CanvasOperation> canvasOperationList
             = new ArrayList<>();
 
-    public void executeOperation(CanvasOperation canvasOperation) throws CanvasException {
+    public void executeDrawOperation(CanvasOperation canvasOperation) throws CanvasException {
         if (canvasOperation instanceof DrawCanvasOperation) {
             setupNewCanvas(canvasOperation);
 
-        }
-        if (canvasOperation instanceof UndoCanvasOperation) {
-            undo();
-            displayCanvas();
-            return;
         }
         if (canvasOperation.execute(canvas))
             canvasOperationList.add(canvasOperation);
@@ -57,7 +54,7 @@ public class CanvasOperationExecutor {
 
     }
 
-    public void undo()  {
+    public void undo() {
         int length = canvasOperationList.size();
         if (length > 1) {
             List<CanvasOperation> listops = new ArrayList<>();
@@ -66,7 +63,7 @@ public class CanvasOperationExecutor {
             listops.remove(length - 1);
             listops.stream().forEach(x -> {
                 try {
-                    executeOperation(x);
+                    executeDrawOperation(x);
                 } catch (CanvasException e) {
                     logger.error(e.getMessage());
                 }
@@ -86,5 +83,33 @@ public class CanvasOperationExecutor {
         canvasOperationList.forEach(logger::debug);
         if (canvas != null)
             logger.info(canvas.showCanvas());
+    }
+
+    public boolean isDrawOperation(String[] inputs) {
+        boolean isDrawOperation = true;
+        switch (inputs[0]) {
+            case OperationConstants.HELP, OperationConstants.QUIT, OperationConstants.UNDO:
+                isDrawOperation = false;
+                break;
+            default:
+                isDrawOperation = true;
+        }
+        return isDrawOperation;
+    }
+
+    public void executeNonDrawOperation(String[] inputs) throws HelpCanvasException, QuitCanvasException {
+        switch (inputs[0]) {
+            case OperationConstants.HELP:
+                throw new HelpCanvasException("Help Details");
+            case OperationConstants.QUIT:
+                throw new QuitCanvasException("Quitting the Application");
+            case OperationConstants.UNDO:
+                this.undo();
+                this.displayCanvas();
+                break;
+            default:
+                // do nothing
+        }
+
     }
 }

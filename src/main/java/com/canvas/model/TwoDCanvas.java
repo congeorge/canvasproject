@@ -15,7 +15,7 @@ public class TwoDCanvas implements CanvasInterface {
         return dimension;
     }
 
-    Coordinate<Integer> dimension;
+    private Coordinate<Integer> dimension;
     private char defaultChar='\u0000';
 
 
@@ -54,8 +54,6 @@ public class TwoDCanvas implements CanvasInterface {
             }
         } else if (y1 == y2) {
            Arrays.fill(canvasArray[y1], x1, x2 + 1, drawChar);
-
-
         }
 
     }
@@ -107,14 +105,12 @@ public class TwoDCanvas implements CanvasInterface {
         doRectangle(start.getX(), start.getY(), end.getX(), end.getY() ,RECTANGLECHAR.getValue());
     }
 
-    private void doRectangle(int x1, int y1, int x2, int y2, char character)
-    {
-
-            doLine(x1, y1, x2, y1,character);
-            doLine(x1, y1, x1, y2,character);
-            doLine(x2, y1, x2, y2, character);
-            doLine(x1, y2, x2, y2,character);
-        }
+    private void doRectangle(int x1, int y1, int x2, int y2, char character) {
+        doLine(x1, y1, x2, y1, character);
+        doLine(x1, y1, x1, y2, character);
+        doLine(x2, y1, x2, y2, character);
+        doLine(x1, y2, x2, y2, character);
+    }
     public void drawFill(Coordinate<Integer> coordinate,char color)
     {
         int x = coordinate.getX();
@@ -132,10 +128,10 @@ public class TwoDCanvas implements CanvasInterface {
         dofill(x,y,origChar,color);
     }
 
-    private void dofill(int x,int y,char origChar, char color) {
+    private void dofill(int x, int y, char origChar, char color) {
         Stack<TwoDCoordinate<Integer>> stack = new Stack<>();
-        int width=dimension.getX();
-        int height=dimension.getY();
+        int width = dimension.getX();
+        int height = dimension.getY();
         stack.add(new TwoDCoordinate<>(y, x));
         while (!stack.isEmpty()) {
             TwoDCoordinate<Integer> pop = stack.pop();
@@ -146,23 +142,21 @@ public class TwoDCanvas implements CanvasInterface {
             else
                 canvasArray[xc][yc] = color;
 
-            if (xc - 1 >= 0 && canvasArray[xc- 1][yc] == origChar) {
+            if (xc - 1 >= 0 && canvasArray[xc - 1][yc] == origChar) {
                 stack.add(new TwoDCoordinate<>(xc - 1, pop.getY()));
             }
             if (xc + 1 < height + 1 && canvasArray[xc + 1][yc] == origChar) {
                 stack.add(new TwoDCoordinate<>(xc + 1, pop.getY()));
 
             }
-            if (yc- 1 >= 0 && canvasArray[xc][yc - 1] == origChar) {
+            if (yc - 1 >= 0 && canvasArray[xc][yc - 1] == origChar) {
                 stack.add(new TwoDCoordinate<>(pop.getX(), yc - 1));
             }
-            if (yc+ 1 < width + 1 && canvasArray[xc][yc + 1] == origChar) {
+            if (yc + 1 < width + 1 && canvasArray[xc][yc + 1] == origChar) {
                 stack.add(new TwoDCoordinate<>(pop.getX(), yc + 1));
             }
-
-
         }
     }
-    }
+}
 
 

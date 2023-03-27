@@ -1,9 +1,7 @@
 C:\projects\canvas-main\src\main\java\com\canvas\model\TwoDCoordinate.java
-C:\projects\canvas-main\src\main\java\com\canvas\operations\UndoCanvasOperation.java
 C:\projects\canvas-main\src\main\java\com\canvas\Main.java
-C:\projects\canvas-main\src\main\java\com\canvas\operations\QuitOperation.java
+C:\projects\canvas-main\src\main\java\com\canvas\exception\HelpCanvasException.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\DrawCanvasOperation.java
-C:\projects\canvas-main\src\main\java\com\canvas\operations\HelpOperation.java
 C:\projects\canvas-main\src\main\java\com\canvas\operations\LineOperation.java
 C:\projects\canvas-main\src\main\java\com\canvas\model\CanvasDrawingConstants.java
 C:\projects\canvas-main\src\main\java\com\canvas\model\TwoDCanvas.java

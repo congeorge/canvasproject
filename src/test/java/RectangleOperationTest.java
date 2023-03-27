@@ -3,6 +3,11 @@ import com.canvas.exception.IncorrectParametersException;
 import com.canvas.operations.RectangleOperation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -25,50 +30,56 @@ class RectangleOperationTest {
         Assertions.assertEquals(13,operation.getCoordinates()[1].getY());
     }
 
-    @Test
-    void RectangleOperationTest_IncorrectNumberOfParameters_OneParamOnly() {
-        Exception exception = assertThrows(IncorrectParametersException.class, () -> new RectangleOperation(new String[]{"20"}));
-        assertEquals("Rectangle needs 4 co-ordinates", exception.getMessage());
-    }
-    @Test
-    void RectangleOperationTest_IncorrectNumberOfParameters_TwoParamOnly() {
-        Exception exception = assertThrows(IncorrectParametersException.class, () -> new RectangleOperation(new String[]{"20","4"}));
+    @ParameterizedTest
+    @MethodSource("incorrectNoOfParameters")
+    void RectangleOperationTest_IncorrectNumberOfParameters_IncorrectNoOfParameters(String[] args) {
+        Exception exception = assertThrows(IncorrectParametersException.class, () -> new RectangleOperation(args));
         assertEquals("Rectangle needs 4 co-ordinates", exception.getMessage());
     }
 
 
-    @Test
-    void RectangleOperationTest_IncorrectNumberOfParameters_ThreeParamOnly() {
-        Exception exception = assertThrows(IncorrectParametersException.class, () -> new RectangleOperation(new String[]{"13","14", "1"}));
-        assertEquals("Rectangle needs 4 co-ordinates", exception.getMessage());
+    private static Stream<Arguments> incorrectNoOfParameters() {
+        return Stream.of(
+                Arguments.of((Object)new  String[]{"20","4"}),
+                Arguments.of((Object)new  String[]{"20","4","20"}),
+                Arguments.of((Object)new String[]{"2"}),
+                Arguments.of((Object)new String[]{})
+        );
     }
 
-    @Test
-    void RectangleOperationTest_InCorrectCommandParameters_WithInValidValues() {
-        Exception exception = assertThrows(IncorrectParametersException.class, () -> new RectangleOperation(new String[]{"12", "13","14", "c"}));
+    @ParameterizedTest
+    @MethodSource("nonNumberInvalidValues")
+    void RectangleOperationTest_InCorrectCommandParameters_NonNumberInvalidValues(String[] args) {
+        Exception exception = assertThrows(IncorrectParametersException.class, () -> new RectangleOperation(args));
         assertEquals("All Rectangle co-ordinates should be valid numbers", exception.getMessage());
     }
 
-    @Test
-    void RectangleOperationTest_InCorrectCommandParameters_WithInValidValues2() {
-        Exception exception = assertThrows(IncorrectParametersException.class, () ->  new RectangleOperation(new String[]{"a","b","2","4"}));
-        assertEquals("All Rectangle co-ordinates should be valid numbers", exception.getMessage());
+    private static Stream<Arguments> nonNumberInvalidValues() {
+        return Stream.of(
+                Arguments.of((Object)new String[]{"a","2","2","4"}),
+                Arguments.of((Object)new String[]{"2","a","2","4"}),
+                Arguments.of((Object)new String[]{"2","2","2","a"}),
+                Arguments.of((Object)new String[]{"a","b","c","d"}),
+                Arguments.of((Object)new String[]{"2","2","c","d"})
+
+        );
     }
 
-
-    @Test
-    void RectangleOperationTest_InCorrectParameters_WithZeroValue(){
+    @ParameterizedTest
+    @MethodSource("negativeOrZeroValueParameters")
+    void RectangleOperationTest_InCorrectParameters_NegativeOrZeroValueParameters(String[] args){
         Exception exception = assertThrows(IncorrectParametersException.class, () -> new RectangleOperation(new String[]{"0","2","5","5"}));
         assertEquals("Rectangle coordinates cannot be less than 0", exception.getMessage());
     }
-    @Test
-    void RectangleOperationTest_InCorrectParameters_WithZeroValue2(){
-        Exception exception = assertThrows(IncorrectParametersException.class, () -> new RectangleOperation(new String[]{"2","2","0","5"}));
-        assertEquals("Rectangle coordinates cannot be less than 0", exception.getMessage());
-    }
-    @Test
-    void RectangleOperationTest_InCorrectParameters_WithNegativeValues()  {
-        Exception exception = assertThrows(IncorrectParametersException.class, () -> new RectangleOperation(new String[]{"-1","-2","-6","-2"}));
-        assertEquals("Rectangle coordinates cannot be less than 0", exception.getMessage());
+    private static Stream<Arguments> negativeOrZeroValueParameters() {
+        return Stream.of(
+                Arguments.of((Object)new String[]{"0","2","6","2"}),
+                Arguments.of((Object)new String[]{"2","0","6","0"}),
+                Arguments.of((Object)new String[]{"2","2","0","2"}),
+                Arguments.of((Object)new String[]{"2","6","2","0"}),
+                Arguments.of((Object)new String[]{"-1","2","-1","2"}),
+                Arguments.of((Object)new String[]{"1","-2","1","-2"})
+
+        );
     }
 }

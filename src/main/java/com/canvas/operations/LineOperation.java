@@ -1,9 +1,6 @@
 package com.canvas.operations;
 
-import com.canvas.exception.CanvasException;
-import com.canvas.exception.IncorrectCoordinatesException;
-import com.canvas.exception.IncorrectParametersException;
-import com.canvas.exception.NoCanvasException;
+import com.canvas.exception.*;
 import com.canvas.model.*;
 
 public class LineOperation implements CanvasOperation{
@@ -23,7 +20,7 @@ public class LineOperation implements CanvasOperation{
                 canvas.drawLine(coordinates[0], coordinates[1]);
                 return true;
             } else
-                throw new IncorrectCoordinatesException("Execution Failed:Cordinates are not within the Canvas");
+                throw new CoordinatesNotWithinCanvasException("Execution Failed:Cordinates are not within the Canvas");
         }
         else {
              throw new NoCanvasException("Canvas is needed to draw lines: Please create canvas first");

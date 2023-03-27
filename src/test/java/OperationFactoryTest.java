@@ -32,6 +32,18 @@ class OperationFactoryTest {
 
     }
     @Test
+    void OperationFactoryTest_getValidRectangleOperation() throws Exception {
+        RectangleOperation expectedRectangle = new RectangleOperation(new String[]{"14", "1","18","3"});
+        CanvasOperation operation = CanvasOperationFactory.getOperation(new String[]{"R","14", "1","18","3"});
+        Assertions.assertTrue((operation instanceof RectangleOperation));
+        Assertions.assertEquals(expectedRectangle.getCoordinates()[0].getX(),operation.getCoordinates()[0].getX());
+        Assertions.assertEquals(expectedRectangle.getCoordinates()[0].getY(),operation.getCoordinates()[0].getY());
+        Assertions.assertEquals(expectedRectangle.getCoordinates()[1].getX(),operation.getCoordinates()[1].getX());
+        Assertions.assertEquals(expectedRectangle.getCoordinates()[1].getY(),operation.getCoordinates()[1].getY());
+
+
+    }
+    @Test
     void OperationFactoryTest_ValidFillOperation() throws Exception {
         FillOperation expectedFill = new FillOperation(new String[]{"1","2","o"});
         CanvasOperation operation = CanvasOperationFactory.getOperation(new String[]{"B","1", "2","o"});
@@ -42,22 +54,7 @@ class OperationFactoryTest {
         Assertions.assertEquals('o',fillOperation.getColor());
 
     }
-    @Test
-    void OperationFactoryTest_ValidQuitOperation() throws Exception {
-        CanvasOperation operation = CanvasOperationFactory.getOperation(new String[]{"Q"});
-        Assertions.assertTrue((operation instanceof QuitOperation));
-      }
-    @Test
-    void OperationFactoryTest_ValidHelpOperation() throws Exception {
-        CanvasOperation operation = CanvasOperationFactory.getOperation(new String[]{"H"});
-        Assertions.assertTrue((operation instanceof HelpOperation));
-    }
 
-    @Test
-    void OperationFactoryTest_ValidUndoOperation() throws Exception {
-        CanvasOperation operation = CanvasOperationFactory.getOperation(new String[]{"U"});
-        Assertions.assertTrue((operation instanceof UndoCanvasOperation));
-    }
 
     @Test
     void OperationFactoryTest_InvalidOperation() throws Exception {

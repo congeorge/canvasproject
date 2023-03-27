@@ -1,7 +1,7 @@
 package com.canvas.model;
 import com.canvas.exception.IncorrectCoordinatesException;
 
-public class TwoDCoordinate<D> implements Coordinate{
+public class TwoDCoordinate<D> implements Coordinate<D>{
     D x;
     D y;
 
@@ -20,18 +20,10 @@ public class TwoDCoordinate<D> implements Coordinate{
     }
 
     @Override
-    public D getZ()  {
-        try {
-            throw new IncorrectCoordinatesException("Only two dimensional Coordinates are Supported");
-        } catch (IncorrectCoordinatesException e) {
-          e.printStackTrace();
-        }
-        return null;
-    }
+    public D getZ()  throws IncorrectCoordinatesException {
+                    throw new IncorrectCoordinatesException("Only two dimensional Coordinates are Supported");
+         }
 
-    public void setY(D y) {
-        this.y = y;
-    }
 
 
 

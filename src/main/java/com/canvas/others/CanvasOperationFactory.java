@@ -17,9 +17,6 @@ public interface CanvasOperationFactory  {
 			case OperationConstants.LINE -> new LineOperation(arguments);
 			case OperationConstants.RECTANGLE -> new RectangleOperation(arguments);
 			case OperationConstants.FILL -> new FillOperation(arguments);
-			case OperationConstants.UNDO -> new UndoCanvasOperation(arguments);
-			case OperationConstants.QUIT -> new QuitOperation(arguments);
-			case OperationConstants.HELP -> new HelpOperation(arguments);
 			default -> throw new NoSuchOperationException("Not a supported operation");
 		};
 		return operation;
